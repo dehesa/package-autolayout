@@ -25,12 +25,44 @@ extension Priority: ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
     }
     
     /// Creates a layout priority with a numeric value (from 1 to 1000).
-    public init<T>(_ value: T) where T:BinaryInteger {
+    public init<I>(_ value: I) where I:BinaryInteger {
         self.init(Float(value))
     }
     
     /// Creates a layout priority with a numeric value (from 1 to 1000).
-    public init<T>(_ value: T) where T:BinaryFloatingPoint {
+    public init<F>(_ value: F) where F:BinaryFloatingPoint {
         self.init(Float(value))
     }
+}
+
+@discardableResult
+public func + <C>(lhs: Priority, rhs: C) -> Priority where C:BinaryInteger {
+    return Priority(lhs.rawValue + Float(rhs))
+}
+
+@discardableResult
+public func + <C>(lhs: Priority, rhs: C) -> Priority
+    where C:BinaryFloatingPoint {
+        return Priority(lhs.rawValue + Float(rhs))
+}
+
+@discardableResult
+public func - <C>(lhs: Priority, rhs: C) -> Priority
+    where C:BinaryInteger {
+    return Priority(lhs.rawValue - Float(rhs))
+}
+
+@discardableResult
+public func - <C>(lhs: Priority, rhs: C) -> Priority
+    where C:BinaryFloatingPoint {
+        return Priority(lhs.rawValue - Float(rhs))
+}
+
+infix operator ~ : RangeFormationPrecedence
+
+@discardableResult
+public func ~ (lhs: NSLayoutConstraint, rhs: Priority) -> NSLayoutConstraint {
+    let result = lhs
+    result.priority = rhs
+    return result
 }

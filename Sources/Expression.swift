@@ -6,29 +6,36 @@ import Cocoa
 #error("OS not supported")
 #endif
 
-/// Encapsulates the right hand expression of a layout equation.
-struct Expression<A> where A:Anchor {
-    var anchor: A?
+public struct Expression {
+    let anchor: NSLayoutDimension
+    let multiplier: CGFloat
     var constant: CGFloat
-    var multiplier: CGFloat
-    var priority: UILayoutPriority
-    var activity: Activity
+    var priority: Priority
     
-    internal init(anchor: A? = nil, multiplier: CGFloat = 1.0, constant: CGFloat, priority: UILayoutPriority = .required, activity: Activity = .default) {
+    init(anchor: NSLayoutDimension, multiplier: CGFloat = 1, constant: CGFloat = 0, priority: Priority = .required) {
         self.anchor = anchor
-        self.constant = constant
         self.multiplier = multiplier
+        self.constant = constant
         self.priority = priority
-        self.activity = activity
+    }
+}
+
+extension Expression {
+    func isEqual(to lhs: NSLayoutDimension) -> NSLayoutConstraint {
+        let result = lhs.constraint(equalTo: self.anchor, multiplier: self.multiplier, constant: self.constant)
+        result.priority = priority
+        return result
     }
     
-    /// Sets the activity property conforming to the inherintance properties.
-    ///
-    /// If `activity` is `.default`, the previous value is respected.
-    internal func setting(activity: Activity) -> Expression<A> {
-        if case .default = activity { return self }
-        var result = self
-        result.activity = activity
+    func isGreater(than lhs: NSLayoutDimension) -> NSLayoutConstraint {
+        let result = lhs.constraint(lessThanOrEqualTo: self.anchor, multiplier: self.multiplier, constant: self.constant)
+        result.priority = priority
+        return result
+    }
+    
+    func isLess(than lhs: NSLayoutDimension) -> NSLayoutConstraint {
+        let result = lhs.constraint(greaterThanOrEqualTo: self.anchor, multiplier: self.multiplier, constant: self.constant)
+        result.priority = priority
         return result
     }
 }

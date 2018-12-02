@@ -16,7 +16,10 @@ extension CGFloat: Constant {
 }
 
 extension CGSize: Constant {
-    
+    /// Creates a size value with the same value for width and height.
+    public init(side: CGFloat) {
+        self.init(width: side, height: side)
+    }
 }
 
 /// Edge inset that can be used to represent vertical- and leading/trailing or left/right horizontal-edges.
@@ -50,6 +53,19 @@ public struct EdgeInsets: Constant {
     /// Convenience initializer creating an inset with 0 on all its properties.
     public init() {
         self.init(0, 0, 0, 0)
+    }
+    
+    /// Convenience initializer creating an edge inset with the same value for all its sides.
+    /// - parameter inset: Inset value to be applied to all sides.
+    public init(inset: CGFloat) {
+        self.init(inset, inset, inset, inset)
+    }
+    
+    /// Convenience initializer creating an edge inset with the a value for horizontal sides and another value for vertical sides.
+    /// - parameter horizontal: Inset value to be applied to horizontal sides (e.g. leading/trailing, left/right).
+    /// - parameter vertical: Inset value to be applied to vertical sides.
+    public init(horizontal: CGFloat, vertical: CGFloat) {
+        self.init(vertical, horizontal, vertical, horizontal)
     }
     
     /// Convenience initializer to create a direcctional edge inset.

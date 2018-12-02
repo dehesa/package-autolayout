@@ -6,22 +6,40 @@ import Cocoa
 #error("OS not supported")
 #endif
 
-/// Indicator on whether a constraint should be actived after initializion or not.
-public enum Activity {
-    /// The constraint will be left as it is currently (inactive by default).
-    case `default`
-    /// The constraint will be activated.
-    case on
-    /// The constraint will be deactivated.
-    case off
-    
-    /// Modify the activity of the given constraint depending on the stored value.
-    internal func setting(constraint: NSLayoutConstraint) -> NSLayoutConstraint {
-        switch self {
-        case .on: constraint.isActive = true
-        case .off: constraint.isActive = false
-        case .default: break
-        }
-        return constraint
-    }
+// MARK: - Postfix
+
+postfix operator ↑
+
+@discardableResult
+public postfix func ↑ (lhs: NSLayoutConstraint) -> NSLayoutConstraint {
+    lhs.isActive = true
+    return lhs
+}
+
+postfix operator ↓
+
+@discardableResult
+public postfix func ↓ (lhs: NSLayoutConstraint) -> NSLayoutConstraint {
+    lhs.isActive = false
+    return lhs
+}
+
+// MARK: - Infix
+
+infix operator ↑ : LogicalConjunctionPrecedence
+
+@discardableResult
+public func ↑ (lhs: NSLayoutConstraint, rhs: String) -> NSLayoutConstraint {
+    lhs.isActive = true
+    lhs.identifier = rhs
+    return lhs
+}
+
+infix operator ↓ : LogicalConjunctionPrecedence
+
+@discardableResult
+public func ↓ (lhs: NSLayoutConstraint, rhs: String) -> NSLayoutConstraint {
+    lhs.isActive = false
+    lhs.identifier = rhs
+    return lhs
 }

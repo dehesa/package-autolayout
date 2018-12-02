@@ -32,7 +32,9 @@ extension View {
         self.addSubview(view)
         autolayout(view)
     }
-    
+}
+
+extension View {
     /// Packages the top, left, bottom, and right layout anchors into a single group.
     public var edgeAnchor: AnchorQuartet {
         return .init(top: self.topAnchor, first: self.leftAnchor, bottom: self.bottomAnchor, second: self.rightAnchor)
