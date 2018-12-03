@@ -125,6 +125,12 @@ extension ExpressionTests {
         let constraint = viewA.heightAnchor >= viewB.heightAnchor ~ 614.23
         assertConstraint(constraint, (viewA, .height), .greaterThanOrEqual, (viewB, .height), multiplier: 1, constant: 0, priority: 614.23)
     }
+    
+    ///
+//    func testBasicAssignmentPriority() {
+//        let constraint = viewA.widthAnchor == 100 ~ .low
+//        assertConstraint(constraint, (viewA, .width), .equal, nil, multiplier: 1, constant: 100, priority: .required)
+//    }
 }
 
 // MARK: - Two operations

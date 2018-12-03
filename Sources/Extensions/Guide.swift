@@ -9,38 +9,38 @@ public typealias Guide = NSLayoutGuide
 #endif
 
 extension Guide {
-    /// Packages the top, left, bottom, and right layout anchors into a single group.
-    public var edgeAnchor: AnchorQuartet {
-        return .init(top: self.topAnchor, first: self.leftAnchor, bottom: self.bottomAnchor, second: self.rightAnchor)
-    }
-    
-    /// Packages the top, leading, bottom, and trailing layout anchors into a single group.
-    public var directionalEdgeAnchor: AnchorQuartet {
-        return .init(top: self.topAnchor, first: self.leadingAnchor, bottom: self.bottomAnchor, second: self.trailingAnchor)
-    }
-    
-    /// Packages the width and height layout anchors into a single group.
-    public var sizeAnchor: AnchorPair<NSLayoutDimension,NSLayoutDimension> {
-        return .init(self.widthAnchor, self.heightAnchor)
-    }
-    
-    /// Packages the center X and Y layout anchors into a single group.
-    public var centerAnchor: AnchorPair<NSLayoutXAxisAnchor,NSLayoutYAxisAnchor> {
-        return .init(self.centerXAnchor, self.centerYAnchor)
-    }
-    
-    /// Packages the top and bottom layout anchors into a single group.
-    public var verticalAnchor: AnchorPair<NSLayoutYAxisAnchor,NSLayoutYAxisAnchor> {
-        return .init(self.topAnchor, self.bottomAnchor)
-    }
-    
     /// Packages the left and right layout anchors into a single group.
-    public var horizontalAnchor: AnchorPair<NSLayoutXAxisAnchor,NSLayoutXAxisAnchor> {
-        return .init(self.leftAnchor, self.rightAnchor)
+    public var horizontalAnchor: HorizontalAnchor {
+        return .init(left: self.leftAnchor, right: self.rightAnchor)
     }
     
     /// Packages the leading and trailing layout anchors into a single group.
-    public var directionalAnchor: AnchorPair<NSLayoutXAxisAnchor,NSLayoutXAxisAnchor> {
-        return .init(self.leadingAnchor, self.trailingAnchor)
+    public var directionalAnchor: DirectionalAnchor {
+        return .init(leading: self.leadingAnchor, trailing: self.trailingAnchor)
+    }
+    
+    /// Packages the top and bottom layout anchors into a single group.
+    public var verticalAnchor: VerticalAnchor {
+        return .init(top: self.topAnchor, bottom: self.bottomAnchor)
+    }
+    
+    /// Packages the center X and Y layout anchors into a single group.
+    public var centerAnchor: CenterAnchor {
+        return .init(x: self.centerXAnchor, y: self.centerYAnchor)
+    }
+    
+    /// Packages the width and height layout anchors into a single group.
+    public var sizeAnchor: SizeAnchor {
+        return .init(width: self.widthAnchor, height: self.heightAnchor)
+    }
+    
+    /// Packages the top, left, bottom, and right layout anchors into a single group.
+    public var edgeAnchor: EdgeAnchor {
+        return .init(top: self.topAnchor, left: self.leftAnchor, bottom: self.bottomAnchor, right: self.rightAnchor)
+    }
+    
+    /// Packages the top, leading, bottom, and trailing layout anchors into a single group.
+    public var directionalEdgeAnchor: DirectionalEdgeAnchor {
+        return .init(top: self.topAnchor, leading: self.leadingAnchor, bottom: self.bottomAnchor, trailing: self.trailingAnchor)
     }
 }
