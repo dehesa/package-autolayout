@@ -10,11 +10,11 @@ public typealias EdgeInsets = NSEdgeInsets
 #error("OS not supported")
 #endif
 
-extension CGFloat: AnchorConstant {
+extension CGFloat: LayoutConstant {
     
 }
 
-extension CGPoint: AnchorConstant, ValuePair {
+extension CGPoint: LayoutConstant, LayoutConstantPair {
     init(_ first: CGFloat, _ second: CGFloat) {
         self.init(x: first, y: second)
     }
@@ -30,7 +30,7 @@ extension CGPoint: AnchorConstant, ValuePair {
     }
 }
 
-extension CGSize: AnchorConstant, ValuePair {
+extension CGSize: LayoutConstant, LayoutConstantPair {
     init(_ first: CGFloat, _ second: CGFloat) {
         self.init(width: first, height: second)
     }
@@ -47,7 +47,7 @@ extension CGSize: AnchorConstant, ValuePair {
 }
 
 /// Represents a a vertical shift for the top and bottom vertical anchors.
-public struct VerticalInsets: AnchorConstant, ValuePair {
+public struct VerticalInsets: LayoutConstant, LayoutConstantPair {
     var top: CGFloat, bottom: CGFloat
     
     public init() {
@@ -74,7 +74,7 @@ public struct VerticalInsets: AnchorConstant, ValuePair {
 }
 
 /// Represents a horizontal shift for the left and right anchors.
-public struct HorizontalInsets: AnchorConstant, ValuePair {
+public struct HorizontalInsets: LayoutConstant, LayoutConstantPair {
     var left: CGFloat, right: CGFloat
     
     public init() {
@@ -101,7 +101,7 @@ public struct HorizontalInsets: AnchorConstant, ValuePair {
 }
 
 /// Represents a horizontal shift for the leading and trailing anchors.
-public struct DirectionalInsets: AnchorConstant, ValuePair {
+public struct DirectionalInsets: LayoutConstant, LayoutConstantPair {
     var leading: CGFloat, trailing: CGFloat
     
     public init() {
@@ -128,7 +128,7 @@ public struct DirectionalInsets: AnchorConstant, ValuePair {
 }
 
 /// Represents a horizontal and vertical shift for the top, left, bottom, right anchors.
-extension EdgeInsets: AnchorConstant, ValueQuartet {
+extension EdgeInsets: LayoutConstant, LayoutConstantQuartet {
     init(_ first: CGFloat, _ second: CGFloat, _ third: CGFloat, _ fourth: CGFloat) {
         self.init(top: first, left: second, bottom: third, right: fourth)
     }
@@ -155,7 +155,7 @@ extension EdgeInsets: AnchorConstant, ValueQuartet {
 }
 
 /// Represents a horizontal and vertical shift for the top, leading, bottom, trailing anchors.
-extension DirectionalEdgeInsets: AnchorConstant, ValueQuartet {
+extension DirectionalEdgeInsets: LayoutConstant, LayoutConstantQuartet {
     init(_ first: CGFloat, _ second: CGFloat, _ third: CGFloat, _ fourth: CGFloat) {
         self.init(top: first, leading: second, bottom: third, trailing: fourth)
     }

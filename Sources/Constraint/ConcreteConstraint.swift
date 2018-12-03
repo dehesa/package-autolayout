@@ -6,75 +6,7 @@ import Cocoa
 #error("OS not supported")
 #endif
 
-public protocol LayoutConstraint {
-    associatedtype Identifier
-    
-    func activating(_ isActive: Bool) -> Self
-    func identifying(_ identifier: Identifier) -> Self
-}
-
-public protocol LayoutConstraintGroup: LayoutConstraint {
-    associatedtype Constraints
-    
-    static func make(with constraints: Self.Constraints) -> Self
-    
-    var all: Self.Constraints { get }
-    func identifying(root: String, _ identifiers: Identifier) -> Self
-}
-
-extension LayoutConstraintGroup where Self.Constraints == (NSLayoutConstraint, NSLayoutConstraint), Self.Identifier == (String, String) {
-    public func activating(_ isActive: Bool) -> Self {
-        let all = self.all
-        all.0.isActive = isActive
-        all.1.isActive = isActive
-        return self
-    }
-    
-    public func identifying(_ identifier: Identifier) -> Self {
-        let all = self.all
-        all.0.identifier = identifier.0
-        all.1.identifier = identifier.1
-        return self
-    }
-    
-    public func identifying(root: String, _ identifiers: Identifier) -> Self {
-        let all = self.all
-        all.0.identifier = root.appending(identifiers.0)
-        all.1.identifier = root.appending(identifiers.1)
-        return self
-    }
-}
-
-extension LayoutConstraintGroup where Self.Constraints == (NSLayoutConstraint, NSLayoutConstraint, NSLayoutConstraint, NSLayoutConstraint), Self.Identifier == (String, String, String, String) {
-    public func activating(_ isActive: Bool) -> Self {
-        let all = self.all
-        all.0.isActive = isActive
-        all.1.isActive = isActive
-        all.2.isActive = isActive
-        all.3.isActive = isActive
-        return self
-    }
-    
-    public func identifying(_ identifier: Identifier) -> Self {
-        let all = self.all
-        all.0.identifier = identifier.0
-        all.1.identifier = identifier.1
-        all.2.identifier = identifier.2
-        all.3.identifier = identifier.3
-        return self
-    }
-    
-    public func identifying(root: String, _ identifiers: Identifier) -> Self {
-        let all = self.all
-        all.0.identifier = root.appending(identifiers.0)
-        all.1.identifier = root.appending(identifiers.1)
-        all.2.identifier = root.appending(identifiers.2)
-        all.3.identifier = root.appending(identifiers.3)
-        return self
-    }
-}
-
-// MARK: - Single Constraint
+// MARK: Single Constraint
 
 extension NSLayoutConstraint: LayoutConstraint {
     public typealias Identifier = String
@@ -109,7 +41,7 @@ extension NSLayoutConstraint {
     public final class Size: LayoutConstraintGroup {
         public typealias Identifier = (String, String)
         public typealias Constraints = (NSLayoutConstraint, NSLayoutConstraint)
-
+        
         public var width: NSLayoutConstraint, height: NSLayoutConstraint
         
         public init(width: NSLayoutConstraint, height: NSLayoutConstraint) {
@@ -128,7 +60,7 @@ extension NSLayoutConstraint {
     public final class Center: LayoutConstraintGroup {
         public typealias Identifier = (String, String)
         public typealias Constraints = (NSLayoutConstraint, NSLayoutConstraint)
-
+        
         public var x: NSLayoutConstraint, y: NSLayoutConstraint
         
         public init(x: NSLayoutConstraint, y: NSLayoutConstraint) {
@@ -147,7 +79,7 @@ extension NSLayoutConstraint {
     public final class Vertical: LayoutConstraintGroup {
         public typealias Identifier = (String, String)
         public typealias Constraints = (NSLayoutConstraint, NSLayoutConstraint)
-
+        
         public var top: NSLayoutConstraint, bottom: NSLayoutConstraint
         
         public init(top: NSLayoutConstraint, bottom: NSLayoutConstraint) {
@@ -166,7 +98,7 @@ extension NSLayoutConstraint {
     public final class Horizontal: LayoutConstraintGroup {
         public typealias Identifier = (String, String)
         public typealias Constraints = (NSLayoutConstraint, NSLayoutConstraint)
-
+        
         public var left: NSLayoutConstraint, right: NSLayoutConstraint
         
         public init(left: NSLayoutConstraint, right: NSLayoutConstraint) {
@@ -185,7 +117,7 @@ extension NSLayoutConstraint {
     public final class Directional: LayoutConstraintGroup {
         public typealias Identifier = (String, String)
         public typealias Constraints = (NSLayoutConstraint, NSLayoutConstraint)
-
+        
         public var leading: NSLayoutConstraint, trailing: NSLayoutConstraint
         
         public init(leading: NSLayoutConstraint, trailing: NSLayoutConstraint) {
@@ -208,7 +140,7 @@ extension NSLayoutConstraint {
     public final class Edges: LayoutConstraintGroup {
         public typealias Identifier = (String, String, String, String)
         public typealias Constraints = (NSLayoutConstraint, NSLayoutConstraint, NSLayoutConstraint, NSLayoutConstraint)
-
+        
         public var top: NSLayoutConstraint, left: NSLayoutConstraint, bottom: NSLayoutConstraint, right: NSLayoutConstraint
         
         public init(top: NSLayoutConstraint, left: NSLayoutConstraint, bottom: NSLayoutConstraint, right: NSLayoutConstraint) {
@@ -245,3 +177,4 @@ extension NSLayoutConstraint {
         }
     }
 }
+

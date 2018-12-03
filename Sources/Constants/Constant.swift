@@ -5,7 +5,7 @@ import QuartzCore
 #endif
 
 /// Type used on layout LayoutExpressions to offset constraints.
-public protocol AnchorConstant {
+public protocol LayoutConstant {
     init()
     
     init(_ value: CGFloat)
@@ -22,14 +22,14 @@ public protocol AnchorConstant {
 }
 
 /// A type of layout constraint containing two values.
-internal protocol ValuePair {
+internal protocol LayoutConstantPair {
     var first: CGFloat { get set }
     var second: CGFloat { get set }
     
     init(_ first: CGFloat, _ second: CGFloat)
 }
 
-extension ValuePair {
+extension LayoutConstantPair {
     public init(_ value: CGFloat) {
         self.init(value, value)
     }
@@ -58,7 +58,7 @@ extension ValuePair {
 }
 
 /// A type of layout constraint containing four values.
-internal protocol ValueQuartet {
+internal protocol LayoutConstantQuartet {
     var first: CGFloat { get set }
     var second: CGFloat { get set }
     var third: CGFloat { get set }
@@ -67,7 +67,7 @@ internal protocol ValueQuartet {
     init(_ first: CGFloat, _ second: CGFloat, _ third: CGFloat, _ fourth: CGFloat)
 }
 
-extension ValueQuartet {
+extension LayoutConstantQuartet {
     public init(_ value: CGFloat) {
         self.init(value, value, value, value)
     }
