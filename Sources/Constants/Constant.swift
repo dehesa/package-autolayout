@@ -4,7 +4,7 @@ import QuartzCore
 #error("CGFloat types are not supported")
 #endif
 
-/// Type used on layout expressions to offset constraints.
+/// Type used on layout LayoutExpressions to offset constraints.
 public protocol AnchorConstant {
     init()
     
@@ -21,7 +21,7 @@ public protocol AnchorConstant {
     static func -= (lhs: inout Self, rhs: Self)
 }
 
-///
+/// A type of layout constraint containing two values.
 internal protocol ValuePair {
     var first: CGFloat { get set }
     var second: CGFloat { get set }
@@ -57,7 +57,7 @@ extension ValuePair {
     }
 }
 
-///
+/// A type of layout constraint containing four values.
 internal protocol ValueQuartet {
     var first: CGFloat { get set }
     var second: CGFloat { get set }

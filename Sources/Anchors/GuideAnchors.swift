@@ -1,14 +1,14 @@
 #if os(iOS) || os(tvOS)
 import UIKit
-public typealias Guide = UILayoutGuide
+public typealias LayoutGuide = UILayoutGuide
 #elseif os(macOS)
 import Cocoa
-public typealias Guide = NSLayoutGuide
+public typealias LayoutGuide = NSLayoutGuide
 #else
 #error("OS not supported")
 #endif
 
-extension Guide {
+extension LayoutGuide {
     /// Packages the left and right layout anchors into a single group.
     public var horizontalAnchor: HorizontalAnchor {
         return .init(left: self.leftAnchor, right: self.rightAnchor)

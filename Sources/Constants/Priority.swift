@@ -1,14 +1,14 @@
 #if os(iOS) || os(tvOS)
 import UIKit
-public typealias Priority = UILayoutPriority
+public typealias LayoutPriority = UILayoutPriority
 #elseif os(macOS)
 import Cocoa
-public typealias Priority = NSLayoutConstraint.Priority
+public typealias LayoutPriority = NSLayoutConstraint.Priority
 #else
 #error("OS not supported")
 #endif
 
-extension Priority: ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
+extension LayoutPriority: ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
     /// The priority level with which a button resists compressing its content.
     public static var high: UILayoutPriority { return .defaultHigh }
     /// The priority level at which a button hugs its contents horizontally.
@@ -36,32 +36,32 @@ extension Priority: ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
 }
 
 @discardableResult
-public func + <C>(lhs: Priority, rhs: C) -> Priority where C:BinaryInteger {
-    return Priority(lhs.rawValue + Float(rhs))
+public func + <C>(lhs: LayoutPriority, rhs: C) -> LayoutPriority where C:BinaryInteger {
+    return LayoutPriority(lhs.rawValue + Float(rhs))
 }
 
 @discardableResult
-public func + <C>(lhs: Priority, rhs: C) -> Priority
+public func + <C>(lhs: LayoutPriority, rhs: C) -> LayoutPriority
     where C:BinaryFloatingPoint {
-        return Priority(lhs.rawValue + Float(rhs))
+        return LayoutPriority(lhs.rawValue + Float(rhs))
 }
 
 @discardableResult
-public func - <C>(lhs: Priority, rhs: C) -> Priority
+public func - <C>(lhs: LayoutPriority, rhs: C) -> LayoutPriority
     where C:BinaryInteger {
-    return Priority(lhs.rawValue - Float(rhs))
+    return LayoutPriority(lhs.rawValue - Float(rhs))
 }
 
 @discardableResult
-public func - <C>(lhs: Priority, rhs: C) -> Priority
+public func - <C>(lhs: LayoutPriority, rhs: C) -> LayoutPriority
     where C:BinaryFloatingPoint {
-        return Priority(lhs.rawValue - Float(rhs))
+        return LayoutPriority(lhs.rawValue - Float(rhs))
 }
 
 infix operator ~ : RangeFormationPrecedence
 
 @discardableResult
-public func ~ (lhs: NSLayoutConstraint, rhs: Priority) -> NSLayoutConstraint {
+public func ~ (lhs: NSLayoutConstraint, rhs: LayoutPriority) -> NSLayoutConstraint {
     let result = lhs
     result.priority = rhs
     return result

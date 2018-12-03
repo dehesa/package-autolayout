@@ -46,7 +46,7 @@ extension CGSize: AnchorConstant, ValuePair {
     }
 }
 
-///
+/// Represents a a vertical shift for the top and bottom vertical anchors.
 public struct VerticalInsets: AnchorConstant, ValuePair {
     var top: CGFloat, bottom: CGFloat
     
@@ -73,7 +73,7 @@ public struct VerticalInsets: AnchorConstant, ValuePair {
     }
 }
 
-///
+/// Represents a horizontal shift for the left and right anchors.
 public struct HorizontalInsets: AnchorConstant, ValuePair {
     var left: CGFloat, right: CGFloat
     
@@ -100,7 +100,7 @@ public struct HorizontalInsets: AnchorConstant, ValuePair {
     }
 }
 
-///
+/// Represents a horizontal shift for the leading and trailing anchors.
 public struct DirectionalInsets: AnchorConstant, ValuePair {
     var leading: CGFloat, trailing: CGFloat
     
@@ -127,6 +127,7 @@ public struct DirectionalInsets: AnchorConstant, ValuePair {
     }
 }
 
+/// Represents a horizontal and vertical shift for the top, left, bottom, right anchors.
 extension EdgeInsets: AnchorConstant, ValueQuartet {
     init(_ first: CGFloat, _ second: CGFloat, _ third: CGFloat, _ fourth: CGFloat) {
         self.init(top: first, left: second, bottom: third, right: fourth)
@@ -153,6 +154,7 @@ extension EdgeInsets: AnchorConstant, ValueQuartet {
     }
 }
 
+/// Represents a horizontal and vertical shift for the top, leading, bottom, trailing anchors.
 extension DirectionalEdgeInsets: AnchorConstant, ValueQuartet {
     init(_ first: CGFloat, _ second: CGFloat, _ third: CGFloat, _ fourth: CGFloat) {
         self.init(top: first, leading: second, bottom: third, trailing: fourth)

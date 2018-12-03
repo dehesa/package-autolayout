@@ -1,11 +1,3 @@
-//
-//  Autolayout.h
-//  Autolayout
-//
-//  Created by Marcos Sanchez-Dehesa on 02.12.18.
-//  Copyright © 2018 Marcos Sanchez-Dehesa. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 
 //! Project version number for Autolayout.

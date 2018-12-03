@@ -7,7 +7,7 @@ func assertIdentity(_ lhs: AnyObject?, _ rhs: AnyObject?, _ message: @autoclosur
 }
 
 /// Asserts that the values of the passed constraint are the ones of the given arguments.
-func assertConstraint(_ constraint: NSLayoutConstraint, _ first: (item: AnyObject?, attribute: NSLayoutConstraint.Attribute), _ relation: NSLayoutConstraint.Relation, _ second: (item: AnyObject?, attribute: NSLayoutConstraint.Attribute)?, multiplier: CGFloat, constant: CGFloat, priority: Priority) {
+func assertConstraint(_ constraint: NSLayoutConstraint, _ first: (item: AnyObject?, attribute: NSLayoutConstraint.Attribute), _ relation: NSLayoutConstraint.Relation, _ second: (item: AnyObject?, attribute: NSLayoutConstraint.Attribute)?, multiplier: CGFloat, constant: CGFloat, priority: LayoutPriority) {
     assertIdentity(constraint.firstItem, first.item)
     XCTAssertEqual(constraint.firstAttribute, first.attribute)
     XCTAssertEqual(constraint.relation, relation)

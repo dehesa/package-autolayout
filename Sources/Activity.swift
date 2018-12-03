@@ -11,29 +11,15 @@ import Cocoa
 postfix operator ↑
 
 @discardableResult
-public postfix func ↑ (lhs: NSLayoutConstraint) -> NSLayoutConstraint {
-    lhs.isActive = true
-    return lhs
-}
-
-@discardableResult
-public postfix func ↑ <S>(lhs: S) -> S where S:Sequence, S.Element == NSLayoutConstraint {
-    lhs.forEach { $0.isActive = true }
-    return lhs
+public postfix func ↑ <C>(lhs: C) -> C where C:LayoutConstraint {
+    return lhs.activating(true)
 }
 
 postfix operator ↓
 
 @discardableResult
-public postfix func ↓ (lhs: NSLayoutConstraint) -> NSLayoutConstraint {
-    lhs.isActive = false
-    return lhs
-}
-
-@discardableResult
-public postfix func ↓ <S>(lhs: S) -> S where S:Sequence, S.Element == NSLayoutConstraint {
-    lhs.forEach { $0.isActive = false }
-    return lhs
+public postfix func ↓ <C>(lhs: C) -> C where C:LayoutConstraint {
+    return lhs.activating(false)
 }
 
 // MARK: - Infix
@@ -41,35 +27,23 @@ public postfix func ↓ <S>(lhs: S) -> S where S:Sequence, S.Element == NSLayout
 infix operator ↑ : LogicalConjunctionPrecedence
 
 @discardableResult
-public func ↑ (lhs: NSLayoutConstraint, rhs: String) -> NSLayoutConstraint {
-    lhs.isActive = true
-    lhs.identifier = rhs
-    return lhs
+public func ↑ <C>(lhs: C, rhs: C.Identifier) -> C where C:LayoutConstraint {
+    return lhs.identifying(rhs).activating(true)
 }
 
 @discardableResult
-public func ↑ <S,C>(lhs: S, rhs: (String, C)) -> S where S:Sequence, S.Element == NSLayoutConstraint, C:Sequence, C.Element == String {
-    for (constraint, suffix) in zip(lhs, rhs.1) {
-        constraint.isActive = true
-        constraint.identifier = rhs.0.appending(suffix)
-    }
-    return lhs
+public func ↑ <C>(lhs: C, rhs: (String, C.Identifier)) -> C where C:LayoutConstraintGroup {
+    return lhs.identifying(root: rhs.0, rhs.1).activating(true)
 }
 
 infix operator ↓ : LogicalConjunctionPrecedence
 
 @discardableResult
-public func ↓ (lhs: NSLayoutConstraint, rhs: String) -> NSLayoutConstraint {
-    lhs.isActive = false
-    lhs.identifier = rhs
-    return lhs
+public func ↓ <C>(lhs: C, rhs: C.Identifier) -> C where C:LayoutConstraint {
+    return lhs.identifying(rhs).activating(false)
 }
 
 @discardableResult
-public func ↓ <S,C>(lhs: S, rhs: (String, C)) -> S where S:Sequence, S.Element == NSLayoutConstraint, C:Sequence, C.Element == String {
-    for (constraint, suffix) in zip(lhs, rhs.1) {
-        constraint.isActive = false
-        constraint.identifier = rhs.0.appending(suffix)
-    }
-    return lhs
+public func ↓ <C>(lhs: C, rhs: (String, C.Identifier)) -> C where C:LayoutConstraintGroup {
+    return lhs.identifying(root: rhs.0, rhs.1).activating(true)
 }
