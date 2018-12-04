@@ -21,9 +21,11 @@ public protocol LayoutConstant {
 }
 
 /// A layout constant formed by several other constants.
-internal protocol LayoutConstantGroup: LayoutConstant {
+public protocol LayoutConstantGroup: LayoutConstant {
     /// The members of the layout constant group.
     associatedtype Members
+    /// The value is copied to all members.
+    init(all value: CGFloat)
     /// Returns all members of the constant group.
     var all: Members { get }
     /// Modify the receiving constant group with new members.
@@ -65,7 +67,7 @@ extension LayoutConstantGroup {
 }
 
 extension LayoutConstantGroup where Self.Members == (CGFloat, CGFloat) {
-    static func operate(_ lhs: Self.Members, _ operation: (CGFloat,CGFloat)->CGFloat, _ rhs: Self.Members) -> Self.Members {
+    public static func operate(_ lhs: Self.Members, _ operation: (CGFloat,CGFloat)->CGFloat, _ rhs: Self.Members) -> Self.Members {
         var result: Members
         result.0 = operation(lhs.0, rhs.0)
         result.1 = operation(lhs.1, rhs.1)
@@ -74,7 +76,7 @@ extension LayoutConstantGroup where Self.Members == (CGFloat, CGFloat) {
 }
 
 extension LayoutConstantGroup where Self.Members == (CGFloat, CGFloat, CGFloat, CGFloat) {
-    static func operate(_ lhs: Self.Members, _ operation: (CGFloat,CGFloat)->CGFloat, _ rhs: Self.Members) -> Self.Members {
+    public static func operate(_ lhs: Self.Members, _ operation: (CGFloat,CGFloat)->CGFloat, _ rhs: Self.Members) -> Self.Members {
         var result: Members
         result.0 = operation(lhs.0, rhs.0)
         result.1 = operation(lhs.1, rhs.1)

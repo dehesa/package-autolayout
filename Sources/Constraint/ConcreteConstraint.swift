@@ -10,17 +10,21 @@ import Cocoa
 
 extension NSLayoutConstraint: LayoutConstraint {
     public typealias Identifier = String
+    public typealias Constant = CGFloat
     
+    @discardableResult
     public func activating(_ isActive: Bool) -> Self {
         self.isActive = isActive
         return self
     }
     
+    @discardableResult
     public func identifying(_ identifier: String) -> Self {
         self.identifier = identifier
         return self
     }
     
+    @discardableResult
     public func prioritizing(_ priority: LayoutPriority) -> Self {
         self.priority = priority
         return self
@@ -50,6 +54,7 @@ extension NSLayoutConstraint {
     /// This is basically a container for the witdth and height dimensional constraints.
     public final class Size: LayoutConstraintGroup {
         public typealias Identifier = (String, String)
+        public typealias Constant = CGSize
         public typealias Members = (NSLayoutConstraint, NSLayoutConstraint)
         /// The width dimensional constraint.
         public var width: NSLayoutConstraint
@@ -74,6 +79,7 @@ extension NSLayoutConstraint {
     /// This is basically a container for the center X and Y constraints.
     public final class Center: LayoutConstraintGroup {
         public typealias Identifier = (String, String)
+        public typealias Constant = CGPoint
         public typealias Members = (NSLayoutConstraint, NSLayoutConstraint)
         /// The center X constraint.
         public var x: NSLayoutConstraint
@@ -96,6 +102,7 @@ extension NSLayoutConstraint {
     /// Constraint group defining the top and bottom vertical constraints of an object.
     public final class Vertical: LayoutConstraintGroup {
         public typealias Identifier = (String, String)
+        public typealias Constant = VerticalInsets
         public typealias Members = (NSLayoutConstraint, NSLayoutConstraint)
         /// The top constraint.
         public var top: NSLayoutConstraint
@@ -118,6 +125,7 @@ extension NSLayoutConstraint {
     /// Constraint group defining the left and right constraints of an object.
     public final class Horizontal: LayoutConstraintGroup {
         public typealias Identifier = (String, String)
+        public typealias Constant = HorizontalInsets
         public typealias Members = (NSLayoutConstraint, NSLayoutConstraint)
         /// The left constraint.
         public var left: NSLayoutConstraint
@@ -140,6 +148,7 @@ extension NSLayoutConstraint {
     /// Constraint group defining the leading and trailing constraints of an object.
     public final class Directional: LayoutConstraintGroup {
         public typealias Identifier = (String, String)
+        public typealias Constant = DirectionalInsets
         public typealias Members = (NSLayoutConstraint, NSLayoutConstraint)
         /// The leading constraint.
         public var leading: NSLayoutConstraint
@@ -166,6 +175,7 @@ extension NSLayoutConstraint {
     /// Constraint group defining the top, left, bottom, right constraint of an object.
     public final class Edges: LayoutConstraintGroup {
         public typealias Identifier = (String, String, String, String)
+        public typealias Constant = EdgeInsets
         public typealias Members = (NSLayoutConstraint, NSLayoutConstraint, NSLayoutConstraint, NSLayoutConstraint)
         /// The top constraint.
         public var top: NSLayoutConstraint
@@ -193,6 +203,7 @@ extension NSLayoutConstraint {
     /// Constraint group defining the top, leading, bottom, right constraints of an object.
     public final class DirectionalEdges: LayoutConstraintGroup {
         public typealias Identifier = (String, String, String, String)
+        public typealias Constant = DirectionalEdgeInsets
         public typealias Members = (NSLayoutConstraint, NSLayoutConstraint, NSLayoutConstraint, NSLayoutConstraint)
         /// The top constraint.
         public var top: NSLayoutConstraint
