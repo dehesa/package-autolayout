@@ -38,12 +38,17 @@ extension CGSize: LayoutConstantGroup {
 
 /// Represents a a vertical shift for the top and bottom vertical anchors.
 public struct VerticalInsets: LayoutConstantGroup {
-    var top: CGFloat, bottom: CGFloat
+    /// The amount of points a vertical anchor will be shifted (from the top).
+    var top: CGFloat
+    /// The amount of points a vertical anchor will be shifted (from the bottom).
+    var bottom: CGFloat
     
     public init() {
-        (self.top, self.bottom) = (0, 0)
+        self.init(top: 0, bottom: 0)
     }
-    
+    /// Designated initializer providing the top and bottom constant.
+    /// - parameter top: The amount of points a vertical anchor will be shifted (from the top).
+    /// - parameter bottom: The amount of points a vertical anchor will be shifted (from the bottom).
     public init(top: CGFloat, bottom: CGFloat) {
         (self.top, self.bottom) = (top, bottom)
     }
@@ -60,12 +65,18 @@ public struct VerticalInsets: LayoutConstantGroup {
 
 /// Represents a horizontal shift for the left and right anchors.
 public struct HorizontalInsets: LayoutConstantGroup {
-    var left: CGFloat, right: CGFloat
+    /// The amount of points a horizontal anchor will be shifted (from the left).
+    var left: CGFloat
+    /// The amount of points a horizontal anchor will be shifted (from the right).
+    var right: CGFloat
     
     public init() {
-        (self.left, self.right) = (0, 0)
+        self.init(left: 0, right: 0)
     }
     
+    /// Designated initializer providing the left and right constant.
+    /// - parameter top: The amount of points a horizontal anchor will be shifted (from the left).
+    /// - parameter bottom: The amount of points a horizontal anchor will be shifted (from the right).
     public init(left: CGFloat, right: CGFloat) {
         (self.left, self.right) = (left, right)
     }
@@ -82,12 +93,18 @@ public struct HorizontalInsets: LayoutConstantGroup {
 
 /// Represents a horizontal shift for the leading and trailing anchors.
 public struct DirectionalInsets: LayoutConstantGroup {
-    var leading: CGFloat, trailing: CGFloat
+    /// The amount of points a horizontal anchor will be shifted (from the leading side).
+    var leading: CGFloat
+    /// The amount of points a horizontal anchor will be shifted (from the trailing side).
+    var trailing: CGFloat
     
     public init() {
-        (self.leading, self.trailing) = (0, 0)
+        self.init(leading: 0, trailing: 0)
     }
     
+    /// Designated initializer providing the leading and trailing constant.
+    /// - parameter top: The amount of points a horizontal anchor will be shifted (from the leading side).
+    /// - parameter bottom: The amount of points a horizontal anchor will be shifted (from the trailing side).
     public init(leading: CGFloat, trailing: CGFloat) {
         (self.leading, self.trailing) = (leading, trailing)
     }

@@ -14,12 +14,10 @@ extension LayoutPriority: ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral
     /// The priority level at which a button hugs its contents horizontally.
     public static var low: UILayoutPriority { return .defaultLow }
     
-    /// Creates a layout priority with a numeric value (from 1 to 1000).
     public init(integerLiteral value: IntegerLiteralType) {
         self.init(Float(value))
     }
     
-    /// Creates a layout priority with a numeric value (from 1 to 1000).
     public init(floatLiteral value: FloatLiteralType) {
         self.init(Float(value))
     }
@@ -35,34 +33,49 @@ extension LayoutPriority: ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral
     }
 }
 
+/// Operation adding two priorities together and returning it as a new layout priority.
+/// - parameter lhs: The priority on the left handside.
+/// - parameter rhs: The priority (as a number) on the right handside.
+/// - returns: The result of the priority addition.
 @discardableResult
 public func + <C>(lhs: LayoutPriority, rhs: C) -> LayoutPriority where C:BinaryInteger {
     return LayoutPriority(lhs.rawValue + Float(rhs))
 }
 
+/// Operation adding two priorities together and returning it as a new layout priority.
+/// - parameter lhs: The priority on the left handside.
+/// - parameter rhs: The priority (as a number) on the right handside.
+/// - returns: The result of the priority addition.
 @discardableResult
-public func + <C>(lhs: LayoutPriority, rhs: C) -> LayoutPriority
-    where C:BinaryFloatingPoint {
+public func + <C>(lhs: LayoutPriority, rhs: C) -> LayoutPriority where C:BinaryFloatingPoint {
         return LayoutPriority(lhs.rawValue + Float(rhs))
 }
 
+/// Operation subtracting two priorities together and returning it as a new layout priority.
+/// - parameter lhs: The priority on the left handside.
+/// - parameter rhs: The priority (as a number) on the right handside.
+/// - returns: The result of the priority subtraction.
 @discardableResult
-public func - <C>(lhs: LayoutPriority, rhs: C) -> LayoutPriority
-    where C:BinaryInteger {
+public func - <C>(lhs: LayoutPriority, rhs: C) -> LayoutPriority where C:BinaryInteger {
     return LayoutPriority(lhs.rawValue - Float(rhs))
 }
 
+/// Operation subtracting two priorities together and returning it as a new layout priority.
+/// - parameter lhs: The priority on the left handside.
+/// - parameter rhs: The priority (as a number) on the right handside.
+/// - returns: The result of the priority subtraction.
 @discardableResult
-public func - <C>(lhs: LayoutPriority, rhs: C) -> LayoutPriority
-    where C:BinaryFloatingPoint {
+public func - <C>(lhs: LayoutPriority, rhs: C) -> LayoutPriority where C:BinaryFloatingPoint {
         return LayoutPriority(lhs.rawValue - Float(rhs))
 }
 
 infix operator ~ : RangeFormationPrecedence
 
+/// Operation setting the priority of a receiving layout constraint.
+/// - parameter lhs: The priority on the left handside.
+/// - parameter rhs: The priority (as a number) on the right handside.
+/// - returns: The result of the priority subtraction.
 @discardableResult
-public func ~ (lhs: NSLayoutConstraint, rhs: LayoutPriority) -> NSLayoutConstraint {
-    let result = lhs
-    result.priority = rhs
-    return result
+public func ~ <C>(lhs: C, rhs: LayoutPriority) -> C where C:LayoutConstraint {
+    return lhs.prioritizing(rhs)
 }

@@ -47,7 +47,7 @@ final class PriorityTests: XCTestCase {
 
 final class PriorityConstraintTests: XCTestCase {
     let window = Window(frame: .init(x: 0, y: 0, width: 400, height: 300))
-    let (viewA, viewB) = (View(), View())
+    let (viewA, viewB) = (LayoutView(), LayoutView())
     
     override func setUp() {
         self.viewA.enableAutolayout()

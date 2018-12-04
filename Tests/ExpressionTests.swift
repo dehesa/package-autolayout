@@ -14,7 +14,7 @@ typealias Window = NSWindow
 /// Test the Autolayout dimension operations.
 final class ExpressionTests: XCTestCase {
     let window = Window(frame: .init(x: 0, y: 0, width: 400, height: 300))
-    let (viewA, viewB) = (View(), View())
+    let (viewA, viewB) = (LayoutView(), LayoutView())
     
     override func setUp() {
         self.viewA.enableAutolayout()
@@ -42,7 +42,7 @@ extension Float {
 extension ExpressionTests {
     /// Tests basic equality for width anchors.
     func testBasicEquality() {
-        let constraint = viewA.widthAnchor == viewB.widthAnchor
+        let constraint: NSLayoutConstraint = viewA.widthAnchor == viewB.widthAnchor
         assertConstraint(constraint, (viewA, .width), .equal, (viewB, .width), multiplier: 1, constant: 0, priority: .required)
     }
     
@@ -54,7 +54,7 @@ extension ExpressionTests {
     
     /// Tests basic equality swapping width and height anchors.
     func testBasicSwapEquality() {
-        let constraint = viewA.widthAnchor == viewB.heightAnchor
+        let constraint: NSLayoutConstraint = viewA.widthAnchor == viewB.heightAnchor
         assertConstraint(constraint, (viewA, .width), .equal, (viewB, .height), multiplier: 1, constant: 0, priority: .required)
     }
     

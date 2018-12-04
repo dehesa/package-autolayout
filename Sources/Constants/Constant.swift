@@ -8,26 +8,31 @@ import QuartzCore
 public protocol LayoutConstant {
     /// Initializes the constants with the default values (i.e. 0s)
     init()
-    
+    /// Operation adding two constants together.
     static func + (lhs: Self, rhs: Self) -> Self
-    
+    /// Operation adding the right handside constant to the left handside constant.
     static func += (lhs: inout Self, rhs: Self)
-    
+    /// Operation negating the receiving constant.
     prefix static func - (operand: Self) -> Self
-    
+    /// Operation subtraction two constants.
     static func - (lhs: Self, rhs: Self) -> Self
-    
+    /// Operation subtracting the right handside constant to the left handside constant.
     static func -= (lhs: inout Self, rhs: Self)
 }
 
+/// A layout constant formed by several other constants.
 internal protocol LayoutConstantGroup: LayoutConstant {
     /// The members of the layout constant group.
     associatedtype Members
     /// Returns all members of the constant group.
     var all: Members { get }
     /// Modify the receiving constant group with new members.
+    /// - parameter members: The members replacing the currently stored members.
     mutating func set(with members: Members)
-    /// Perform the given operation in two member sets.
+    /// Perform the given operation in two constants members.
+    /// - parameter lhs: The members of a constant operating on the operation's left handside.
+    /// - parameter operator: The operation to be applied for each single member.
+    /// - parameter rhs: The members of a constant operating on the operation's right handside.
     static func operate(_ lhs: Self.Members, _ operator: (CGFloat,CGFloat)->CGFloat, _ rhs: Self.Members) -> Self.Members
 }
 

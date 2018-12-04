@@ -15,7 +15,7 @@ func assertConstraint(_ constraint: NSLayoutConstraint, _ first: (item: AnyObjec
         assertIdentity(constraint.secondItem, second.item)
         XCTAssertEqual(constraint.secondAttribute, second.attribute)
     }
-    XCTAssertEqual(constraint.multiplier, multiplier, accuracy: .epsilon)
-    XCTAssertEqual(constraint.constant, constant, accuracy: .epsilon)
-    XCTAssertEqual(constraint.priority.rawValue, priority.rawValue)
+    XCTAssertEqual(constraint.multiplier, multiplier, accuracy: .epsilon, "Constraint multiplier is \(constraint.multiplier) when it should be \(multiplier)")
+    XCTAssertEqual(constraint.constant, constant, accuracy: .epsilon, "Constant is \(constraint.constant) when it should be \(constant)")
+    XCTAssertEqual(constraint.priority.rawValue, priority.rawValue, "Priority is \(constraint.priority.rawValue) when it should be \(priority.rawValue)")
 }

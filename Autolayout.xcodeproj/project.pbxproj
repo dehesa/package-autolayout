@@ -93,9 +93,9 @@
 			children = (
 				8DEC4B0F21B44CA300F61A5E /* Anchor.swift */,
 				8DA3A5E521B5EC2D00E14ECA /* ConcreteAnchor.swift */,
+				8D864C3421B46BCB0070AC14 /* AnchorOperators.swift */,
 				8DEC4B0E21B44CA300F61A5E /* GuideAnchors.swift */,
 				8DEC4B0D21B44CA200F61A5E /* ViewAnchors.swift */,
-				8D864C3421B46BCB0070AC14 /* AnchorOperators.swift */,
 			);
 			path = Anchors;
 			sourceTree = "<group>";

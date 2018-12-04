@@ -10,19 +10,19 @@ import Cocoa
 
 extension NSLayoutDimension: LayoutAnchorSingle {
     public func constraint(equalTo anchor: NSLayoutDimension, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat) -> NSLayoutConstraint {
-        let result = self.constraint(equalTo: anchor, multiplier: multiplier ?? 0, constant: constant)
+        let result = self.constraint(equalTo: anchor, multiplier: multiplier ?? 1, constant: constant)
         result.priority = priority
         return result
     }
     
     public func constraint(greaterThanOrEqualTo anchor: NSLayoutDimension, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat) -> NSLayoutConstraint {
-        let result = self.constraint(greaterThanOrEqualTo: anchor, multiplier: multiplier ?? 0, constant: constant)
+        let result = self.constraint(greaterThanOrEqualTo: anchor, multiplier: multiplier ?? 1, constant: constant)
         result.priority = priority
         return result
     }
     
     public func constraint(lessThanOrEqualTo anchor: NSLayoutDimension, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat) -> NSLayoutConstraint {
-        let result = self.constraint(lessThanOrEqualTo: anchor, multiplier: multiplier ?? 0, constant: constant)
+        let result = self.constraint(lessThanOrEqualTo: anchor, multiplier: multiplier ?? 1, constant: constant)
         result.priority = priority
         return result
     }
@@ -30,29 +30,29 @@ extension NSLayoutDimension: LayoutAnchorSingle {
 
 extension NSLayoutXAxisAnchor: LayoutAnchorSingle {
     public func constraint(equalTo anchor: NSLayoutXAxisAnchor, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat) -> NSLayoutConstraint {
-        return self.constraint(equalTo: anchor, constant: constant).duplicate(withMultiplier: multiplier, priority: priority)
+        return self.constraint(equalTo: anchor, constant: constant).basicDuplicationIfNeeded(withMultiplier: multiplier, priority: priority)
     }
     
     public func constraint(greaterThanOrEqualTo anchor: NSLayoutXAxisAnchor, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat) -> NSLayoutConstraint {
-        return self.constraint(greaterThanOrEqualTo: anchor, constant: constant).duplicate(withMultiplier: multiplier, priority: priority)
+        return self.constraint(greaterThanOrEqualTo: anchor, constant: constant).basicDuplicationIfNeeded(withMultiplier: multiplier, priority: priority)
     }
     
     public func constraint(lessThanOrEqualTo anchor: NSLayoutXAxisAnchor, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat) -> NSLayoutConstraint {
-        return self.constraint(lessThanOrEqualTo: anchor, constant: constant).duplicate(withMultiplier: multiplier, priority: priority)
+        return self.constraint(lessThanOrEqualTo: anchor, constant: constant).basicDuplicationIfNeeded(withMultiplier: multiplier, priority: priority)
     }
 }
 
 extension NSLayoutYAxisAnchor: LayoutAnchorSingle {
     public func constraint(equalTo anchor: NSLayoutYAxisAnchor, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat) -> NSLayoutConstraint {
-        return self.constraint(equalTo: anchor, constant: constant).duplicate(withMultiplier: multiplier, priority: priority)
+        return self.constraint(equalTo: anchor, constant: constant).basicDuplicationIfNeeded(withMultiplier: multiplier, priority: priority)
     }
     
     public func constraint(greaterThanOrEqualTo anchor: NSLayoutYAxisAnchor, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat) -> NSLayoutConstraint {
-        return self.constraint(greaterThanOrEqualTo: anchor, constant: constant).duplicate(withMultiplier: multiplier, priority: priority)
+        return self.constraint(greaterThanOrEqualTo: anchor, constant: constant).basicDuplicationIfNeeded(withMultiplier: multiplier, priority: priority)
     }
     
     public func constraint(lessThanOrEqualTo anchor: NSLayoutYAxisAnchor, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat) -> NSLayoutConstraint {
-        return self.constraint(lessThanOrEqualTo: anchor, constant: constant).duplicate(withMultiplier: multiplier, priority: priority)
+        return self.constraint(lessThanOrEqualTo: anchor, constant: constant).basicDuplicationIfNeeded(withMultiplier: multiplier, priority: priority)
     }
 }
 

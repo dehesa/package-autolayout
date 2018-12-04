@@ -19,7 +19,7 @@ public protocol LayoutAnchor {
     func constraint(lessThanOrEqualTo anchor: Self, _ priority: LayoutPriority, multiplier: CGFloat?, constant: Self.Constant) -> Self.Constraint
 }
 
-/// An anchor defined in UIKit.
+/// A non-aggregated anchor.
 internal protocol LayoutAnchorSingle: LayoutAnchor where Self.Constant == CGFloat, Self.Constraint == NSLayoutConstraint {
     
 }
@@ -27,7 +27,7 @@ internal protocol LayoutAnchorSingle: LayoutAnchor where Self.Constant == CGFloa
 /// An anchor internally grouping two single anchors (e.g. `SizeAnchor`, `CenterAnchor`, etc.).
 internal protocol LayoutAnchorPair: LayoutAnchor where
         Self.Constant: LayoutConstantGroup, Self.Constant.Members == (CGFloat,CGFloat),
-        Self.Constraint: LayoutConstraintGroup, Self.Constraint.Constraints == (NSLayoutConstraint,NSLayoutConstraint) {
+        Self.Constraint: LayoutConstraintGroup, Self.Constraint.Members == (NSLayoutConstraint,NSLayoutConstraint) {
     /// The anchor type for the first single anchor.
     associatedtype AnchorA: LayoutAnchorSingle
     /// The anchor type for the second single anchor.
@@ -64,7 +64,7 @@ extension LayoutAnchorPair {
 /// An anchor internally grouping four single anchors (e.g. `EdgeAnchor`).
 internal protocol LayoutAnchorQuartet: LayoutAnchor where
         Self.Constant: LayoutConstantGroup, Self.Constant.Members == (CGFloat, CGFloat, CGFloat, CGFloat),
-        Self.Constraint: LayoutConstraintGroup, Self.Constraint.Constraints == (NSLayoutConstraint, NSLayoutConstraint, NSLayoutConstraint, NSLayoutConstraint) {
+        Self.Constraint: LayoutConstraintGroup, Self.Constraint.Members == (NSLayoutConstraint, NSLayoutConstraint, NSLayoutConstraint, NSLayoutConstraint) {
     /// The anchor type for the first single anchor.
     associatedtype AnchorA: LayoutAnchorSingle
     /// The anchor type for the second single anchor.
