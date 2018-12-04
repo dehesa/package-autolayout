@@ -1,6 +1,6 @@
-#if os(iOS) || os(tvOS)
+#if canImport(UIKit)
 import UIKit
-#elseif os(macOS)
+#elseif canImport(Cocoa)
 import Cocoa
 #else
 #error("OS not supported")
@@ -9,50 +9,50 @@ import Cocoa
 // MARK: - Single Anchors
 
 extension NSLayoutDimension: LayoutAnchorSingle {
-    public func constraint(equalTo anchor: NSLayoutDimension, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat?) -> NSLayoutConstraint {
-        let result = self.constraint(equalTo: anchor, multiplier: multiplier ?? 0, constant: constant ?? 0)
+    public func constraint(equalTo anchor: NSLayoutDimension, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat) -> NSLayoutConstraint {
+        let result = self.constraint(equalTo: anchor, multiplier: multiplier ?? 0, constant: constant)
         result.priority = priority
         return result
     }
     
-    public func constraint(greaterThanOrEqualTo anchor: NSLayoutDimension, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat?) -> NSLayoutConstraint {
-        let result = self.constraint(greaterThanOrEqualTo: anchor, multiplier: multiplier ?? 0, constant: constant ?? 0)
+    public func constraint(greaterThanOrEqualTo anchor: NSLayoutDimension, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat) -> NSLayoutConstraint {
+        let result = self.constraint(greaterThanOrEqualTo: anchor, multiplier: multiplier ?? 0, constant: constant)
         result.priority = priority
         return result
     }
     
-    public func constraint(lessThanOrEqualTo anchor: NSLayoutDimension, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat?) -> NSLayoutConstraint {
-        let result = self.constraint(lessThanOrEqualTo: anchor, multiplier: multiplier ?? 0, constant: constant ?? 0)
+    public func constraint(lessThanOrEqualTo anchor: NSLayoutDimension, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat) -> NSLayoutConstraint {
+        let result = self.constraint(lessThanOrEqualTo: anchor, multiplier: multiplier ?? 0, constant: constant)
         result.priority = priority
         return result
     }
 }
 
 extension NSLayoutXAxisAnchor: LayoutAnchorSingle {
-    public func constraint(equalTo anchor: NSLayoutXAxisAnchor, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat?) -> NSLayoutConstraint {
-        return self.constraint(equalTo: anchor, constant: constant ?? 0).duplicate(withMultiplier: multiplier, priority: priority)
+    public func constraint(equalTo anchor: NSLayoutXAxisAnchor, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat) -> NSLayoutConstraint {
+        return self.constraint(equalTo: anchor, constant: constant).duplicate(withMultiplier: multiplier, priority: priority)
     }
     
-    public func constraint(greaterThanOrEqualTo anchor: NSLayoutXAxisAnchor, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat?) -> NSLayoutConstraint {
-        return self.constraint(greaterThanOrEqualTo: anchor, constant: constant ?? 0).duplicate(withMultiplier: multiplier, priority: priority)
+    public func constraint(greaterThanOrEqualTo anchor: NSLayoutXAxisAnchor, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat) -> NSLayoutConstraint {
+        return self.constraint(greaterThanOrEqualTo: anchor, constant: constant).duplicate(withMultiplier: multiplier, priority: priority)
     }
     
-    public func constraint(lessThanOrEqualTo anchor: NSLayoutXAxisAnchor, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat?) -> NSLayoutConstraint {
-        return self.constraint(lessThanOrEqualTo: anchor, constant: constant ?? 0).duplicate(withMultiplier: multiplier, priority: priority)
+    public func constraint(lessThanOrEqualTo anchor: NSLayoutXAxisAnchor, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat) -> NSLayoutConstraint {
+        return self.constraint(lessThanOrEqualTo: anchor, constant: constant).duplicate(withMultiplier: multiplier, priority: priority)
     }
 }
 
 extension NSLayoutYAxisAnchor: LayoutAnchorSingle {
-    public func constraint(equalTo anchor: NSLayoutYAxisAnchor, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat?) -> NSLayoutConstraint {
-        return self.constraint(equalTo: anchor, constant: constant ?? 0).duplicate(withMultiplier: multiplier, priority: priority)
+    public func constraint(equalTo anchor: NSLayoutYAxisAnchor, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat) -> NSLayoutConstraint {
+        return self.constraint(equalTo: anchor, constant: constant).duplicate(withMultiplier: multiplier, priority: priority)
     }
     
-    public func constraint(greaterThanOrEqualTo anchor: NSLayoutYAxisAnchor, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat?) -> NSLayoutConstraint {
-        return self.constraint(greaterThanOrEqualTo: anchor, constant: constant ?? 0).duplicate(withMultiplier: multiplier, priority: priority)
+    public func constraint(greaterThanOrEqualTo anchor: NSLayoutYAxisAnchor, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat) -> NSLayoutConstraint {
+        return self.constraint(greaterThanOrEqualTo: anchor, constant: constant).duplicate(withMultiplier: multiplier, priority: priority)
     }
     
-    public func constraint(lessThanOrEqualTo anchor: NSLayoutYAxisAnchor, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat?) -> NSLayoutConstraint {
-        return self.constraint(lessThanOrEqualTo: anchor, constant: constant ?? 0).duplicate(withMultiplier: multiplier, priority: priority)
+    public func constraint(lessThanOrEqualTo anchor: NSLayoutYAxisAnchor, _ priority: LayoutPriority, multiplier: CGFloat?, constant: CGFloat) -> NSLayoutConstraint {
+        return self.constraint(lessThanOrEqualTo: anchor, constant: constant).duplicate(withMultiplier: multiplier, priority: priority)
     }
 }
 

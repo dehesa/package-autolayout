@@ -1,6 +1,6 @@
-#if os(iOS) || os(tvOS)
+#if canImport(UIKit)
 import UIKit
-#elseif os(macOS)
+#elseif canImport(Cocoa)
 import Cocoa
 #else
 #error("OS not supported")
@@ -15,7 +15,7 @@ public func == <C>(lhs: NSLayoutDimension, rhs: C) -> NSLayoutConstraint where C
 
 @discardableResult
 public func == <A>(lhs: A, rhs: A) -> A.Constraint where A:LayoutAnchor {
-    return lhs.constraint(equalTo: rhs, .required, multiplier: nil, constant: nil)
+    return lhs.constraint(equalTo: rhs, .required, multiplier: nil, constant: .init())
 }
 
 @discardableResult
@@ -32,7 +32,7 @@ public func >= <C>(lhs: NSLayoutDimension, rhs: C) -> NSLayoutConstraint where C
 
 @discardableResult
 public func >= <A>(lhs: A, rhs: A) -> A.Constraint where A:LayoutAnchor {
-    return lhs.constraint(greaterThanOrEqualTo: rhs, .required, multiplier: nil, constant: nil)
+    return lhs.constraint(greaterThanOrEqualTo: rhs, .required, multiplier: nil, constant: .init())
 }
 
 @discardableResult
@@ -49,7 +49,7 @@ public func <= <C>(lhs: NSLayoutDimension, rhs: C) -> NSLayoutConstraint where C
 
 @discardableResult
 public func <= <A>(lhs: A, rhs: A) -> A.Constraint where A:LayoutAnchor {
-    return lhs.constraint(lessThanOrEqualTo: rhs, .required, multiplier: nil, constant: nil)
+    return lhs.constraint(lessThanOrEqualTo: rhs, .required, multiplier: nil, constant: .init())
 }
 
 @discardableResult

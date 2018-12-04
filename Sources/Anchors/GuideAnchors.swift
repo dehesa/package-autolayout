@@ -1,7 +1,7 @@
-#if os(iOS) || os(tvOS)
+#if canImport(UIKit)
 import UIKit
 internal typealias LayoutGuide = UILayoutGuide
-#elseif os(macOS)
+#elseif canImport(Cocoa)
 import Cocoa
 internal typealias LayoutGuide = NSLayoutGuide
 #else

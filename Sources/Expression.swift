@@ -1,19 +1,17 @@
-#if os(iOS) || os(tvOS)
-import UIKit
-#elseif os(macOS)
-import Cocoa
+#if canImport(QuartzCore)
+import QuartzCore
 #else
-#error("OS not supported")
+#error("CGFloat types are not supported")
 #endif
 
 /// Represents the left hand side of a layout constraint operation.
 public struct LayoutExpression<A> where A:LayoutAnchor {
     internal let anchor: A
     internal let multiplier: CGFloat?
-    internal var constant: A.Constant?
+    internal var constant: A.Constant
     internal var priority: LayoutPriority
     
-    internal init(anchor: A, multiplier: CGFloat? = nil, constant: A.Constant? = nil, priority: LayoutPriority = .required) {
+    internal init(anchor: A, multiplier: CGFloat? = nil, constant: A.Constant = .init(), priority: LayoutPriority = .required) {
         self.anchor = anchor
         self.multiplier = multiplier
         self.constant = constant
@@ -46,11 +44,7 @@ public func - <A>(lhs: A, rhs: A.Constant) -> LayoutExpression<A> where A:Layout
 // MARK: - LayoutExpressions & Constants
 
 internal func += <A>(lhs: inout LayoutExpression<A>, rhs: A.Constant) where A:LayoutAnchor {
-    if let constant = lhs.constant {
-        lhs.constant = constant + rhs
-    } else {
-        lhs.constant = rhs
-    }
+    lhs.constant = rhs
 }
 
 public func + <A>(lhs: LayoutExpression<A>, rhs: A.Constant) -> LayoutExpression<A> where A:LayoutAnchor {
@@ -60,11 +54,7 @@ public func + <A>(lhs: LayoutExpression<A>, rhs: A.Constant) -> LayoutExpression
 }
 
 internal func -= <A>(lhs: inout LayoutExpression<A>, rhs: A.Constant) where A:LayoutAnchor {
-    if let constant = lhs.constant {
-        lhs.constant = constant - rhs
-    } else {
-        lhs.constant = -rhs
-    }
+    lhs.constant = -rhs
 }
 
 public func - <A>(lhs: LayoutExpression<A>, rhs: A.Constant) -> LayoutExpression<A> where A:LayoutAnchor {

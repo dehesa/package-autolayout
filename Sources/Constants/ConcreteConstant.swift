@@ -1,8 +1,8 @@
-#if os(iOS) || os(tvOS)
+#if canImport(UIKit)
 import UIKit
 public typealias EdgeInsets = UIEdgeInsets
 public typealias DirectionalEdgeInsets = NSDirectionalEdgeInsets
-#elseif os(macOS)
+#elseif canImport(Cocoa)
 import Cocoa
 public typealias EdgeInsets = NSEdgeInsets
 #warning("TODO: Create a DirectionalEdgeInsets for macOS")
@@ -14,40 +14,30 @@ extension CGFloat: LayoutConstant {
     
 }
 
-extension CGPoint: LayoutConstant, LayoutConstantPair {
-    init(_ first: CGFloat, _ second: CGFloat) {
-        self.init(x: first, y: second)
+extension CGPoint: LayoutConstantGroup {
+    var all: (CGFloat, CGFloat) {
+        return (self.x, self.y)
     }
     
-    var first: CGFloat {
-        get { return self.x }
-        set { self.x = newValue }
-    }
-    
-    var second: CGFloat {
-        get { return self.y }
-        set { self.y = newValue }
+    mutating func set(with members: (CGFloat, CGFloat)) {
+        self.x = members.0
+        self.y = members.1
     }
 }
 
-extension CGSize: LayoutConstant, LayoutConstantPair {
-    init(_ first: CGFloat, _ second: CGFloat) {
-        self.init(width: first, height: second)
+extension CGSize: LayoutConstantGroup {
+    var all: (CGFloat, CGFloat) {
+        return (self.width, self.height)
     }
     
-    var first: CGFloat {
-        get { return self.width }
-        set { self.width = newValue }
-    }
-    
-    var second: CGFloat {
-        get { return self.height }
-        set { self.height = newValue }
+    mutating func set(with members: (CGFloat, CGFloat)) {
+        self.width = members.0
+        self.height = members.1
     }
 }
 
 /// Represents a a vertical shift for the top and bottom vertical anchors.
-public struct VerticalInsets: LayoutConstant, LayoutConstantPair {
+public struct VerticalInsets: LayoutConstantGroup {
     var top: CGFloat, bottom: CGFloat
     
     public init() {
@@ -58,23 +48,18 @@ public struct VerticalInsets: LayoutConstant, LayoutConstantPair {
         (self.top, self.bottom) = (top, bottom)
     }
     
-    init(_ first: CGFloat, _ second: CGFloat) {
-        (self.top, self.bottom) = (first, second)
+    var all: (CGFloat, CGFloat) {
+        return (self.top, self.bottom)
     }
     
-    var first: CGFloat {
-        get { return self.top }
-        set { self.top = newValue }
-    }
-    
-    var second: CGFloat {
-        get { return self.bottom }
-        set { self.bottom = newValue }
+    mutating func set(with members: (CGFloat, CGFloat)) {
+        self.top = members.0
+        self.bottom = members.1
     }
 }
 
 /// Represents a horizontal shift for the left and right anchors.
-public struct HorizontalInsets: LayoutConstant, LayoutConstantPair {
+public struct HorizontalInsets: LayoutConstantGroup {
     var left: CGFloat, right: CGFloat
     
     public init() {
@@ -85,23 +70,18 @@ public struct HorizontalInsets: LayoutConstant, LayoutConstantPair {
         (self.left, self.right) = (left, right)
     }
     
-    init(_ first: CGFloat, _ second: CGFloat) {
-        (self.left, self.right) = (first, second)
+    var all: (CGFloat, CGFloat) {
+        return (self.left, self.right)
     }
     
-    var first: CGFloat {
-        get { return self.left }
-        set { self.left = newValue }
-    }
-    
-    var second: CGFloat {
-        get { return self.right }
-        set { self.right = newValue }
+    mutating func set(with members: (CGFloat, CGFloat)) {
+        self.left = members.0
+        self.right = members.1
     }
 }
 
 /// Represents a horizontal shift for the leading and trailing anchors.
-public struct DirectionalInsets: LayoutConstant, LayoutConstantPair {
+public struct DirectionalInsets: LayoutConstantGroup {
     var leading: CGFloat, trailing: CGFloat
     
     public init() {
@@ -112,71 +92,40 @@ public struct DirectionalInsets: LayoutConstant, LayoutConstantPair {
         (self.leading, self.trailing) = (leading, trailing)
     }
     
-    init(_ first: CGFloat, _ second: CGFloat) {
-        (self.leading, self.trailing) = (first, second)
+    var all: (CGFloat, CGFloat) {
+        return (self.leading, self.trailing)
     }
     
-    var first: CGFloat {
-        get { return self.leading }
-        set { self.leading = newValue }
-    }
-    
-    var second: CGFloat {
-        get { return self.trailing }
-        set { self.trailing = newValue }
+    mutating func set(with members: (CGFloat, CGFloat)) {
+        self.leading = members.0
+        self.trailing = members.1
     }
 }
 
 /// Represents a horizontal and vertical shift for the top, left, bottom, right anchors.
-extension EdgeInsets: LayoutConstant, LayoutConstantQuartet {
-    init(_ first: CGFloat, _ second: CGFloat, _ third: CGFloat, _ fourth: CGFloat) {
-        self.init(top: first, left: second, bottom: third, right: fourth)
+extension EdgeInsets: LayoutConstantGroup {
+    var all: (CGFloat, CGFloat, CGFloat, CGFloat) {
+        return (self.top, self.left, self.bottom, self.right)
     }
     
-    var first: CGFloat {
-        get { return self.top }
-        set { self.top = newValue }
-    }
-    
-    var second: CGFloat {
-        get { return self.left }
-        set { self.left = newValue }
-    }
-    
-    var third: CGFloat {
-        get { return self.bottom }
-        set { self.bottom = newValue }
-    }
-    
-    var fourth: CGFloat {
-        get { return self.right }
-        set { self.right = newValue }
+    mutating func set(with members: (CGFloat, CGFloat, CGFloat, CGFloat)) {
+        self.top = members.0
+        self.left = members.1
+        self.bottom = members.2
+        self.right = members.3
     }
 }
 
 /// Represents a horizontal and vertical shift for the top, leading, bottom, trailing anchors.
-extension DirectionalEdgeInsets: LayoutConstant, LayoutConstantQuartet {
-    init(_ first: CGFloat, _ second: CGFloat, _ third: CGFloat, _ fourth: CGFloat) {
-        self.init(top: first, leading: second, bottom: third, trailing: fourth)
+extension DirectionalEdgeInsets: LayoutConstantGroup {
+    var all: (CGFloat, CGFloat, CGFloat, CGFloat) {
+        return (self.top, self.leading, self.bottom, self.trailing)
     }
     
-    var first: CGFloat {
-        get { return self.top }
-        set { self.top = newValue }
-    }
-    
-    var second: CGFloat {
-        get { return self.leading }
-        set { self.leading = newValue }
-    }
-    
-    var third: CGFloat {
-        get { return self.bottom }
-        set { self.bottom = newValue }
-    }
-    
-    var fourth: CGFloat {
-        get { return self.trailing }
-        set { self.trailing = newValue }
+    mutating func set(with members: (CGFloat, CGFloat, CGFloat, CGFloat)) {
+        self.top = members.0
+        self.leading = members.1
+        self.bottom = members.2
+        self.trailing = members.3
     }
 }

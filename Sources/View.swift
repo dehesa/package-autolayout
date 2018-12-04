@@ -1,7 +1,7 @@
-#if os(iOS) || os(tvOS)
+#if canImport(UIKit)
 import UIKit
 public typealias LayoutView = UIView
-#elseif os(macOS)
+#elseif canImport(Cocoa)
 import Cocoa
 public typealias LayoutView = NSView
 #else

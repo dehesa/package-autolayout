@@ -1,7 +1,7 @@
-#if os(iOS) || os(tvOS)
+#if canImport(UIKit)
 import UIKit
 public typealias LayoutPriority = UILayoutPriority
-#elseif os(macOS)
+#elseif canImport(Cocoa)
 import Cocoa
 public typealias LayoutPriority = NSLayoutConstraint.Priority
 #else

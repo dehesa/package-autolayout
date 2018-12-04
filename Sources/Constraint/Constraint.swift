@@ -1,11 +1,3 @@
-#if os(iOS) || os(tvOS)
-import UIKit
-#elseif os(macOS)
-import Cocoa
-#else
-#error("OS not supported")
-#endif
-
 public protocol LayoutConstraint {
     associatedtype Identifier
     
