@@ -19,12 +19,22 @@ public protocol LayoutAnchor {
     func constraint(lessThanOrEqualTo anchor: Self, _ priority: LayoutPriority, multiplier: CGFloat?, constant: Self.Constant) -> Self.Constraint
 }
 
+///
+public protocol LayoutAnchorSimple: LayoutAnchor {
+    ///
+    func constraint(equalTo constant: Self.Constant, priority: LayoutPriority) -> Self.Constraint
+    ///
+    func constraint(greaterThanOrEqualTo constant: Self.Constant, priority: LayoutPriority) -> Self.Constraint
+    ///
+    func constraint(lessThanOrEqualTo constant: Self.Constant, priority: LayoutPriority) -> Self.Constraint
+}
+
 /// A non-aggregated anchor.
 internal protocol LayoutAnchorSingle: LayoutAnchor where Self.Constant == CGFloat, Self.Constraint == NSLayoutConstraint {
     
 }
 
-/// An anchor internally grouping two single anchors (e.g. `SizeAnchor`, `CenterAnchor`, etc.).
+/// An anchor internally grouping two single anchors (e.g. `SizeAnchor`, `LayoutCenterCenterAnchor`, etc.).
 internal protocol LayoutAnchorPair: LayoutAnchor where
         Self.Constant: LayoutConstantGroup, Self.Constant.Members == (CGFloat,CGFloat),
         Self.Constraint: LayoutConstraintGroup, Self.Constraint.Members == (NSLayoutConstraint,NSLayoutConstraint) {

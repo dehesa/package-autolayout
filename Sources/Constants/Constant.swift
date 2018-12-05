@@ -4,7 +4,7 @@ import QuartzCore
 #error("CGFloat types are not supported")
 #endif
 
-/// Type used on layout LayoutExpressions to offset constraints.
+/// Type used on layout Expressions to offset constraints.
 public protocol LayoutConstant {
     /// Initializes the constants with the default values (i.e. 0s)
     init()

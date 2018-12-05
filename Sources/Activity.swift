@@ -20,7 +20,7 @@ public postfix func ↓ <C>(lhs: C) -> C where C:LayoutConstraint {
 
 infix operator ↑ : LogicalConjunctionPrecedence
 
-/// Infix operation activing and identifying the constraint or group of constraints on the operation's left hand side.
+/// Infix operation activing and identifying the constraint or group of constraints on the operation's left handside.
 /// - parameter lhs: The constraint/s to be actuated upon.
 /// - parameter rhs: The identifiers to be assigned to the constraint/s.
 /// - returns: The modifyied `lhs`.
@@ -29,7 +29,7 @@ public func ↑ <C>(lhs: C, rhs: C.Identifier) -> C where C:LayoutConstraint {
     return lhs.identifying(rhs).activating(true)
 }
 
-/// Infix operation activating and identifying the constraint or group of constraint on the operation's left hand side.
+/// Infix operation activating and identifying the constraint or group of constraint on the operation's left handside.
 /// - parameter lhs: The constraint/s to be actuated upon.
 /// - parameter rhs: The root identifier to be preppended and the identifiers to be postppended to the constraint/s.
 /// - returns: The modifyied `lhs`.
@@ -40,7 +40,7 @@ public func ↑ <C>(lhs: C, rhs: (String, C.Identifier)) -> C where C:LayoutCons
 
 infix operator ↓ : LogicalConjunctionPrecedence
 
-/// Infix operation disabling and idenfying the constraint or group of constraints on the operation's left hand side.
+/// Infix operation disabling and idenfying the constraint or group of constraints on the operation's left handside.
 /// - parameter lhs: The constraint/s to be actuated upon.
 /// - parameter rhs: The identifiers to be assigned to the constraint/s.
 /// - returns: The modifyied `lhs`.
@@ -49,7 +49,7 @@ public func ↓ <C>(lhs: C, rhs: C.Identifier) -> C where C:LayoutConstraint {
     return lhs.identifying(rhs).activating(false)
 }
 
-/// Infix operation disabling and idenfying the constraint or group of constraints on the operation's left hand side.
+/// Infix operation disabling and idenfying the constraint or group of constraints on the operation's left handside.
 /// - parameter lhs: The constraint/s to be actuated upon.
 /// - parameter rhs: The root identifier to be preppended and the identifiers to be postppended to the constraint/s.
 /// - returns: The modifyied `lhs`.
