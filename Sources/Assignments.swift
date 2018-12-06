@@ -20,7 +20,7 @@ public func == <A>(lhs: A, rhs: A) -> A.Constraint where A:LayoutAnchor {
 
 @discardableResult
 public func == <A>(lhs: A, rhs: LayoutConstantExpression<A>) -> A.Constraint where A:LayoutAnchorSimple {
-    return lhs.constraint(equalTo: rhs.constant, priority: rhs.priority)
+    return lhs.constraint(equalTo: rhs.constant, rhs.priority)
 }
 
 @discardableResult
@@ -42,7 +42,7 @@ public func >= <A>(lhs: A, rhs: A) -> A.Constraint where A:LayoutAnchor {
 
 @discardableResult
 public func >= <A>(lhs: A, rhs: LayoutConstantExpression<A>) -> A.Constraint where A:LayoutAnchorSimple {
-    return lhs.constraint(greaterThanOrEqualTo: rhs.constant, priority: rhs.priority)
+    return lhs.constraint(greaterThanOrEqualTo: rhs.constant, rhs.priority)
 }
 
 @discardableResult
@@ -64,7 +64,7 @@ public func <= <A>(lhs: A, rhs: A) -> A.Constraint where A:LayoutAnchor {
 
 @discardableResult
 public func <= <A>(lhs: A, rhs: LayoutConstantExpression<A>) -> A.Constraint where A:LayoutAnchorSimple {
-    return lhs.constraint(lessThanOrEqualTo: rhs.constant, priority: rhs.priority)
+    return lhs.constraint(lessThanOrEqualTo: rhs.constant, rhs.priority)
 }
 
 @discardableResult
