@@ -12,26 +12,27 @@ public protocol LayoutAnchor {
     associatedtype Constraint: LayoutConstraint
     
     /// Generates the constraint/s of of the equality relation between the receiving and passed anchors.
-    func constraint(equalTo anchor: Self, _ priority: LayoutPriority, multiplier: CGFloat?, constant: Self.Constant) -> Self.Constraint
+    func constraint(equalTo anchor: Self, multiplier: CGFloat?, constant: Self.Constant) -> Self.Constraint
     /// Generates the constraint/s of the "greater than" inequality relation between the receiving and passed anchors.
-    func constraint(greaterThanOrEqualTo anchor: Self, _ priority: LayoutPriority, multiplier: CGFloat?, constant: Self.Constant) -> Self.Constraint
+    func constraint(greaterThanOrEqualTo anchor: Self, multiplier: CGFloat?, constant: Self.Constant) -> Self.Constraint
     /// Generates the constraint/s of the "less than" inequality relation between the receiving and passed anchors.
-    func constraint(lessThanOrEqualTo anchor: Self, _ priority: LayoutPriority, multiplier: CGFloat?, constant: Self.Constant) -> Self.Constraint
+    func constraint(lessThanOrEqualTo anchor: Self, multiplier: CGFloat?, constant: Self.Constant) -> Self.Constraint
 }
 
 /// Layout anchor that is able to produce constraints from only layout constants.
-public protocol LayoutAnchorSimple: LayoutAnchor {
+public protocol LayoutAnchorConstant: LayoutAnchor {
     /// Generates constraints from an equality relation between the receiving anchor and a constant.
-    func constraint(equalTo constant: Self.Constant, _ priority: LayoutPriority) -> Self.Constraint
+    func constraint(equalToConstant constant: Self.Constant) -> Self.Constraint
     /// Generates constraints from a "greater than" inequality relation between the receiving anchor and a constant.
-    func constraint(greaterThanOrEqualTo constant: Self.Constant, _ priority: LayoutPriority) -> Self.Constraint
+    func constraint(greaterThanOrEqualToConstant constant: Self.Constant) -> Self.Constraint
     /// Generates constraints from a "less than" inequality relation between the receiving anchor and a constant.
-    func constraint(lessThanOrEqualTo constant: Self.Constant, _ priority: LayoutPriority) -> Self.Constraint
+    func constraint(lessThanOrEqualToConstant constant: Self.Constant) -> Self.Constraint
 }
 
 /// A layout anchor that produces a single layout constraint (i.e. non-aggregated).
-internal protocol LayoutAnchorSingle: LayoutAnchor where Self.Constant == CGFloat, Self.Constraint == NSLayoutConstraint {
-    
+internal protocol LayoutAnchorSingle: LayoutAnchor where
+            Self.Constant == CGFloat,
+            Self.Constraint == NSLayoutConstraint {
 }
 
 /// An anchor internally grouping two single anchors (e.g. `SizeAnchor`, `LayoutCenterCenterAnchor`, etc.).
@@ -49,24 +50,24 @@ internal protocol LayoutAnchorPair: LayoutAnchor where
 }
 
 extension LayoutAnchorPair {
-    public func constraint(equalTo anchor: Self, _ priority: LayoutPriority, multiplier: CGFloat?, constant: Self.Constant) -> Self.Constraint {
+    public func constraint(equalTo anchor: Self, multiplier: CGFloat?, constant: Self.Constant) -> Self.Constraint {
         let (lhs, rhs, cnt) = (self.all, anchor.all, constant.all)
-        let firstConstraint = lhs.0.constraint(equalTo: rhs.0, priority, multiplier: multiplier, constant: cnt.0)
-        let secondConstraint = lhs.1.constraint(equalTo: rhs.1, priority, multiplier: multiplier, constant: cnt.1)
+        let firstConstraint = lhs.0.constraint(equalTo: rhs.0, multiplier: multiplier, constant: cnt.0)
+        let secondConstraint = lhs.1.constraint(equalTo: rhs.1, multiplier: multiplier, constant: cnt.1)
         return Self.Constraint.make(with: (firstConstraint, secondConstraint))
     }
     
-    public func constraint(greaterThanOrEqualTo anchor: Self, _ priority: LayoutPriority, multiplier: CGFloat?, constant: Self.Constant) -> Self.Constraint {
+    public func constraint(greaterThanOrEqualTo anchor: Self, multiplier: CGFloat?, constant: Self.Constant) -> Self.Constraint {
         let (lhs, rhs, cnt) = (self.all, anchor.all, constant.all)
-        let firstConstraint = lhs.0.constraint(greaterThanOrEqualTo: rhs.0, priority, multiplier: multiplier, constant: cnt.0)
-        let secondConstraint = lhs.1.constraint(greaterThanOrEqualTo: rhs.1, priority, multiplier: multiplier, constant: cnt.1)
+        let firstConstraint = lhs.0.constraint(greaterThanOrEqualTo: rhs.0, multiplier: multiplier, constant: cnt.0)
+        let secondConstraint = lhs.1.constraint(greaterThanOrEqualTo: rhs.1, multiplier: multiplier, constant: cnt.1)
         return Self.Constraint.make(with: (firstConstraint, secondConstraint))
     }
     
-    public func constraint(lessThanOrEqualTo anchor: Self, _ priority: LayoutPriority, multiplier: CGFloat?, constant: Self.Constant) -> Self.Constraint {
+    public func constraint(lessThanOrEqualTo anchor: Self, multiplier: CGFloat?, constant: Self.Constant) -> Self.Constraint {
         let (lhs, rhs, cnt) = (self.all, anchor.all, constant.all)
-        let firstConstraint = lhs.0.constraint(lessThanOrEqualTo: rhs.0, priority, multiplier: multiplier, constant: cnt.0)
-        let secondConstraint = lhs.1.constraint(lessThanOrEqualTo: rhs.1, priority, multiplier: multiplier, constant: cnt.1)
+        let firstConstraint = lhs.0.constraint(lessThanOrEqualTo: rhs.0, multiplier: multiplier, constant: cnt.0)
+        let secondConstraint = lhs.1.constraint(lessThanOrEqualTo: rhs.1, multiplier: multiplier, constant: cnt.1)
         return Self.Constraint.make(with: (firstConstraint, secondConstraint))
     }
 }
@@ -90,30 +91,30 @@ internal protocol LayoutAnchorQuartet: LayoutAnchor where
 }
 
 extension LayoutAnchorQuartet {
-    public func constraint(equalTo anchor: Self, _ priority: LayoutPriority, multiplier: CGFloat?, constant: Self.Constant) -> Self.Constraint {
+    public func constraint(equalTo anchor: Self, multiplier: CGFloat?, constant: Self.Constant) -> Self.Constraint {
         let (lhs, rhs, cnt) = (self.all, anchor.all, constant.all)
-        let firstConstraint = lhs.0.constraint(equalTo: rhs.0, priority, multiplier: multiplier, constant: cnt.0)
-        let secondConstraint = lhs.1.constraint(equalTo: rhs.1, priority, multiplier: multiplier, constant: cnt.1)
-        let thirdConstraint = lhs.2.constraint(equalTo: rhs.2, priority, multiplier: multiplier, constant: cnt.2)
-        let fourthConstraint = lhs.3.constraint(equalTo: rhs.3, priority, multiplier: multiplier, constant: cnt.3)
+        let firstConstraint = lhs.0.constraint(equalTo: rhs.0, multiplier: multiplier, constant: cnt.0)
+        let secondConstraint = lhs.1.constraint(equalTo: rhs.1, multiplier: multiplier, constant: cnt.1)
+        let thirdConstraint = lhs.2.constraint(equalTo: rhs.2, multiplier: multiplier, constant: cnt.2)
+        let fourthConstraint = lhs.3.constraint(equalTo: rhs.3, multiplier: multiplier, constant: cnt.3)
         return Self.Constraint.make(with: (firstConstraint, secondConstraint, thirdConstraint, fourthConstraint))
     }
     
-    public func constraint(greaterThanOrEqualTo anchor: Self, _ priority: LayoutPriority, multiplier: CGFloat?, constant: Self.Constant) -> Self.Constraint {
+    public func constraint(greaterThanOrEqualTo anchor: Self, multiplier: CGFloat?, constant: Self.Constant) -> Self.Constraint {
         let (lhs, rhs, cnt) = (self.all, anchor.all, constant.all)
-        let firstConstraint = lhs.0.constraint(greaterThanOrEqualTo: rhs.0, priority, multiplier: multiplier, constant: cnt.0)
-        let secondConstraint = lhs.1.constraint(greaterThanOrEqualTo: rhs.1, priority, multiplier: multiplier, constant: cnt.1)
-        let thirdConstraint = lhs.2.constraint(greaterThanOrEqualTo: rhs.2, priority, multiplier: multiplier, constant: cnt.2)
-        let fourthConstraint = lhs.3.constraint(greaterThanOrEqualTo: rhs.3, priority, multiplier: multiplier, constant: cnt.3)
+        let firstConstraint = lhs.0.constraint(greaterThanOrEqualTo: rhs.0, multiplier: multiplier, constant: cnt.0)
+        let secondConstraint = lhs.1.constraint(greaterThanOrEqualTo: rhs.1, multiplier: multiplier, constant: cnt.1)
+        let thirdConstraint = lhs.2.constraint(greaterThanOrEqualTo: rhs.2, multiplier: multiplier, constant: cnt.2)
+        let fourthConstraint = lhs.3.constraint(greaterThanOrEqualTo: rhs.3, multiplier: multiplier, constant: cnt.3)
         return Self.Constraint.make(with: (firstConstraint, secondConstraint, thirdConstraint, fourthConstraint))
     }
     
-    public func constraint(lessThanOrEqualTo anchor: Self, _ priority: LayoutPriority, multiplier: CGFloat?, constant: Self.Constant) -> Self.Constraint {
+    public func constraint(lessThanOrEqualTo anchor: Self, multiplier: CGFloat?, constant: Self.Constant) -> Self.Constraint {
         let (lhs, rhs, cnt) = (self.all, anchor.all, constant.all)
-        let firstConstraint = lhs.0.constraint(lessThanOrEqualTo: rhs.0, priority, multiplier: multiplier, constant: cnt.0)
-        let secondConstraint = lhs.1.constraint(lessThanOrEqualTo: rhs.1, priority, multiplier: multiplier, constant: cnt.1)
-        let thirdConstraint = lhs.2.constraint(lessThanOrEqualTo: rhs.2, priority, multiplier: multiplier, constant: cnt.2)
-        let fourthConstraint = lhs.3.constraint(lessThanOrEqualTo: rhs.3, priority, multiplier: multiplier, constant: cnt.3)
+        let firstConstraint = lhs.0.constraint(lessThanOrEqualTo: rhs.0, multiplier: multiplier, constant: cnt.0)
+        let secondConstraint = lhs.1.constraint(lessThanOrEqualTo: rhs.1, multiplier: multiplier, constant: cnt.1)
+        let thirdConstraint = lhs.2.constraint(lessThanOrEqualTo: rhs.2, multiplier: multiplier, constant: cnt.2)
+        let fourthConstraint = lhs.3.constraint(lessThanOrEqualTo: rhs.3, multiplier: multiplier, constant: cnt.3)
         return Self.Constraint.make(with: (firstConstraint, secondConstraint, thirdConstraint, fourthConstraint))
     }
 }

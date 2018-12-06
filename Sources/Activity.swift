@@ -18,7 +18,7 @@ public postfix func ↓ <C>(lhs: C) -> C where C:LayoutConstraint {
 
 // MARK: - Infix
 
-infix operator ↑ : LogicalConjunctionPrecedence
+infix operator ↑ : LogicalDisjunctionPrecedence
 
 /// Infix operation activing and identifying the constraint or group of constraints on the operation's left handside.
 /// - parameter lhs: The constraint/s to be actuated upon.
@@ -38,7 +38,7 @@ public func ↑ <C>(lhs: C, rhs: (String, C.Identifier)) -> C where C:LayoutCons
     return lhs.identifying(root: rhs.0, rhs.1).activating(true)
 }
 
-infix operator ↓ : LogicalConjunctionPrecedence
+infix operator ↓ : LogicalDisjunctionPrecedence
 
 /// Infix operation disabling and idenfying the constraint or group of constraints on the operation's left handside.
 /// - parameter lhs: The constraint/s to be actuated upon.

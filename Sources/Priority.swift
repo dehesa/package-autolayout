@@ -69,7 +69,7 @@ public func - <C>(lhs: LayoutPriority, rhs: C) -> LayoutPriority where C:BinaryF
         return LayoutPriority(lhs.rawValue - Float(rhs))
 }
 
-infix operator ~ : RangeFormationPrecedence
+infix operator ~ : LogicalConjunctionPrecedence
 
 /// Operation setting the priority of a receiving layout constraint.
 /// - parameter lhs: The priority on the left handside.

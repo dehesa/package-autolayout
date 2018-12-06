@@ -30,18 +30,16 @@ extension NSLayoutConstraint: LayoutConstraint {
         return self
     }
     
-    /// Duplicates a constraint and modifies its multiplier and priority properties with the ones passed as arguments.
+    /// If a multiplier is given, the receiving constraint is duplicated modifying its multiplier property.
     /// - parameter multiplier: Optional multiplier to to use in the constraint formula.
-    /// - parameter priority: The layout priority that the result constraint will have.
-    /// - returns: The receiving constraint (if duplication wasn't needed) or a newly created constraint with the basic attributes copied (not all attributes are copied).
-    internal func basicDuplicationIfNeeded(withMultiplier multiplier: CGFloat?, priority: LayoutPriority) -> NSLayoutConstraint {
+    /// - returns: The receiving constraint (if duplication wasn't needed) or a newly created constraint with the basic attributes copied (NOT all attributes are copied).
+    internal func basicDuplicationIfNeeded(withMultiplier multiplier: CGFloat?) -> NSLayoutConstraint {
         let result: NSLayoutConstraint
         if let multiplier = multiplier {
             result = NSLayoutConstraint(item: self.firstItem!, attribute: self.firstAttribute, relatedBy: self.relation, toItem: self.secondItem, attribute: self.secondAttribute, multiplier: multiplier, constant: self.constant)
         } else {
             result = self
         }
-        result.priority = priority
         return result
     }
 }
