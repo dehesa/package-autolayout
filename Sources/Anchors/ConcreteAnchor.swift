@@ -63,7 +63,7 @@ public struct LayoutSizeAnchor: LayoutAnchorPair {
         (self.widthAnchor, self.heightAnchor) = (anchorA, anchorB)
     }
     
-    var all: (NSLayoutDimension, NSLayoutDimension) {
+    var anchors: (NSLayoutDimension, NSLayoutDimension) {
         return (self.widthAnchor, self.heightAnchor)
     }
 }
@@ -96,7 +96,7 @@ public struct LayoutCenterCenterAnchor: LayoutAnchorPair {
         (self.x, self.y) = (anchorA, anchorB)
     }
     
-    var all: (NSLayoutXAxisAnchor, NSLayoutYAxisAnchor) {
+    var anchors: (NSLayoutXAxisAnchor, NSLayoutYAxisAnchor) {
         return (self.x, self.y)
     }
 }
@@ -112,7 +112,7 @@ public struct LayoutVerticalAnchor: LayoutAnchorPair {
         (self.top, self.bottom) = (anchorA, anchorB)
     }
     
-    var all: (NSLayoutYAxisAnchor, NSLayoutYAxisAnchor) {
+    var anchors: (NSLayoutYAxisAnchor, NSLayoutYAxisAnchor) {
         return (self.top, self.bottom)
     }
 }
@@ -128,7 +128,7 @@ public struct LayoutHorizontalAnchor: LayoutAnchorPair {
         (self.left, self.right) = (anchorA, anchorB)
     }
     
-    var all: (NSLayoutXAxisAnchor, NSLayoutXAxisAnchor) {
+    var anchors: (NSLayoutXAxisAnchor, NSLayoutXAxisAnchor) {
         return (self.left, self.right)
     }
 }
@@ -144,7 +144,7 @@ public struct LayoutDirectionalAnchor: LayoutAnchorPair {
         (self.leading, self.trailing) = (anchorA, anchorB)
     }
     
-    var all: (NSLayoutXAxisAnchor, NSLayoutXAxisAnchor) {
+    var anchors: (NSLayoutXAxisAnchor, NSLayoutXAxisAnchor) {
         return (self.leading, self.trailing)
     }
 }
@@ -163,7 +163,7 @@ public struct LayoutEdgeAnchor: LayoutAnchorQuartet {
         (self.left, self.right) = (anchorB, anchorD)
     }
     
-    var all: (NSLayoutYAxisAnchor, NSLayoutXAxisAnchor, NSLayoutYAxisAnchor, NSLayoutXAxisAnchor) {
+    var anchors: (NSLayoutYAxisAnchor, NSLayoutXAxisAnchor, NSLayoutYAxisAnchor, NSLayoutXAxisAnchor) {
         return (self.top, self.left, self.bottom, self.right)
     }
 }
@@ -180,7 +180,7 @@ public struct LayoutDirectionalEdgeAnchor: LayoutAnchorQuartet {
         (self.leading, self.trailing) = (anchorB, anchorD)
     }
     
-    var all: (NSLayoutYAxisAnchor, NSLayoutXAxisAnchor, NSLayoutYAxisAnchor, NSLayoutXAxisAnchor) {
+    var anchors: (NSLayoutYAxisAnchor, NSLayoutXAxisAnchor, NSLayoutYAxisAnchor, NSLayoutXAxisAnchor) {
         return (self.top, self.leading, self.bottom, self.trailing)
     }
 }

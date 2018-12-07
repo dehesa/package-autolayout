@@ -21,67 +21,130 @@ public protocol LayoutConstant {
 }
 
 /// A layout constant formed by several other constants.
-public protocol LayoutConstantGroup: LayoutConstant {
-    /// The members of the layout constant group.
-    associatedtype Members
+public protocol LayoutConstantGroup: LayoutConstant, Sequence where
+            Self.Element == CGFloat {
     /// The value is copied to all members.
-    init(all value: CGFloat)
-    /// Returns all members of the constant group.
-    var all: Members { get }
-    /// Modify the receiving constant group with new members.
-    /// - parameter members: The members replacing the currently stored members.
-    mutating func set(with members: Members)
-    /// Perform the given operation in two constants members.
-    /// - parameter lhs: The members of a constant operating on the operation's left handside.
-    /// - parameter operator: The operation to be applied for each single member.
-    /// - parameter rhs: The members of a constant operating on the operation's right handside.
-    static func operate(_ lhs: Self.Members, _ operator: (CGFloat,CGFloat)->CGFloat, _ rhs: Self.Members) -> Self.Members
+    init(_ value: CGFloat)
+    /// Initializes the constant from a sequence.
+    ///
+    /// Zero will be paste on sequences that are not long enough.
+    init<S>(_ sequence: S) where S:Sequence, S.Element == CGFloat
 }
 
-extension LayoutConstantGroup {
+/// A layout constant formed by only two values.
+internal protocol LayoutConstantPair: LayoutConstantGroup where
+            Self.Iterator == LayoutIteratorPair<CGFloat> {
+    /// Convenience initializer setting up the first and second members.
+    init(_ first: CGFloat, _ second: CGFloat)
+    /// Returns the stored elements as a tuple.
+    var values: (CGFloat, CGFloat) { get set }
+}
+
+extension LayoutConstantPair {
     public static func + (lhs: Self, rhs: Self) -> Self {
-        var result: Self = .init()
-        result.set(with: operate(lhs.all, +, rhs.all))
-        return result
+        let (left, right) = (lhs.values, rhs.values)
+        return .init(left.0 + right.0, left.1 + right.1)
     }
     
     public static func += (lhs: inout Self, rhs: Self) {
-        lhs.set(with: operate(lhs.all, +, rhs.all))
+        let (left, right) = (lhs.values, rhs.values)
+        let first  = left.0 + right.0
+        let second = left.1 + right.1
+        lhs.values = (first, second)
     }
     
     public prefix static func - (operand: Self) -> Self {
-        var result: Self = .init()
-        result.set(with: operate(result.all, -, operand.all))
-        return result
+        let values = operand.values
+        return .init(-values.0, -values.1)
     }
     
     public static func - (lhs: Self, rhs: Self) -> Self {
-        var result: Self = .init()
-        result.set(with: operate(lhs.all, -, rhs.all))
-        return result
+        let (left, right) = (lhs.values, rhs.values)
+        return .init(left.0 - right.0, left.1 - right.1)
     }
     
     public static func -= (lhs: inout Self, rhs: Self) {
-        lhs.set(with: operate(lhs.all, -, rhs.all))
+        let (left, right) = (lhs.values, rhs.values)
+        let first  = left.0 - right.0
+        let second = left.1 - right.1
+        lhs.values = (first, second)
+    }
+    
+    public func makeIterator() -> Self.Iterator {
+        return .init(values: self.values)
+    }
+    
+    public init() {
+        self.init(0, 0)
+    }
+    
+    public init(_ value: CGFloat) {
+        self.init(value, value)
+    }
+    
+    public init<S>(_ sequence: S) where S : Sequence, S.Element == CGFloat {
+        var iterator = sequence.makeIterator()
+        self.init(iterator.next() ?? 0, iterator.next() ?? 0)
     }
 }
 
-extension LayoutConstantGroup where Self.Members == (CGFloat, CGFloat) {
-    public static func operate(_ lhs: Self.Members, _ operation: (CGFloat,CGFloat)->CGFloat, _ rhs: Self.Members) -> Self.Members {
-        var result: Members
-        result.0 = operation(lhs.0, rhs.0)
-        result.1 = operation(lhs.1, rhs.1)
-        return result
-    }
+/// A layout constant formed by only four values.
+internal protocol LayoutConstantQuartet: LayoutConstantGroup where
+Self.Iterator == LayoutIteratorQuartet<CGFloat> {
+    /// Convenience initializer setting up the first and second members.
+    init(_ first: CGFloat, _ second: CGFloat, _ third: CGFloat, _ fourth: CGFloat)
+    /// Returns the stored elements as a tuple.
+    var values: (CGFloat, CGFloat, CGFloat, CGFloat) { get set }
 }
 
-extension LayoutConstantGroup where Self.Members == (CGFloat, CGFloat, CGFloat, CGFloat) {
-    public static func operate(_ lhs: Self.Members, _ operation: (CGFloat,CGFloat)->CGFloat, _ rhs: Self.Members) -> Self.Members {
-        var result: Members
-        result.0 = operation(lhs.0, rhs.0)
-        result.1 = operation(lhs.1, rhs.1)
-        result.2 = operation(lhs.2, rhs.2)
-        result.3 = operation(lhs.3, rhs.3)
-        return result
+extension LayoutConstantQuartet {
+    public static func + (lhs: Self, rhs: Self) -> Self {
+        let (left, right) = (lhs.values, rhs.values)
+        return .init(left.0 + right.0, left.1 + right.1, left.2 + right.2, left.3 + right.3)
+    }
+    
+    public static func += (lhs: inout Self, rhs: Self) {
+        let (left, right) = (lhs.values, rhs.values)
+        let first  = left.0 + right.0
+        let second = left.1 + right.1
+        let third  = left.2 + right.2
+        let fourth = left.3 + right.3
+        lhs.values = (first, second, third, fourth)
+    }
+    
+    public prefix static func - (operand: Self) -> Self {
+        let values = operand.values
+        return .init(-values.0, -values.1, values.2, values.3)
+    }
+    
+    public static func - (lhs: Self, rhs: Self) -> Self {
+        let (left, right) = (lhs.values, rhs.values)
+        return .init(left.0 - right.0, left.1 - right.1, left.2 - right.2, left.3 - right.3)
+    }
+    
+    public static func -= (lhs: inout Self, rhs: Self) {
+        let (left, right) = (lhs.values, rhs.values)
+        let first  = left.0 - right.0
+        let second = left.1 - right.1
+        let third  = left.2 - right.2
+        let fourth = left.3 - right.3
+        lhs.values = (first, second, third, fourth)
+    }
+    
+    public func makeIterator() -> Self.Iterator {
+        return .init(values: self.values)
+    }
+    
+    public init() {
+        self.init(0, 0, 0, 0)
+    }
+    
+    public init(_ value: CGFloat) {
+        self.init(value, value, value, value)
+    }
+    
+    public init<S>(_ sequence: S) where S : Sequence, S.Element == CGFloat {
+        var iterator = sequence.makeIterator()
+        self.init(iterator.next() ?? 0, iterator.next() ?? 0, iterator.next() ?? 0, iterator.next() ?? 0)
     }
 }

@@ -76,6 +76,28 @@ infix operator ~ : LogicalConjunctionPrecedence
 /// - parameter rhs: The priority (as a number) on the right handside.
 /// - returns: The result of the priority subtraction.
 @discardableResult
-public func ~ <C>(lhs: C, rhs: LayoutPriority) -> C where C:LayoutConstraint {
-    return lhs.prioritizing(rhs)
+public func ~ (lhs: NSLayoutConstraint, rhs: LayoutPriority) -> NSLayoutConstraint {
+    lhs.priority = rhs
+    return lhs
+}
+
+/// Operation setting the priority of a receiving layout constraint.
+/// - parameter lhs: The priority on the left handside.
+/// - parameter rhs: The priority (as a number) on the right handside.
+/// - returns: The result of the priority subtraction.
+@discardableResult
+public func ~ <C>(lhs: C, rhs: C.Priority) -> C where C:LayoutConstraintGroup {
+    var result = lhs
+    result.priority = rhs
+    return result
+}
+
+/// Operation setting the priority of a receiving layout constraint.
+/// - parameter lhs: The priority on the left handside.
+/// - parameter rhs: The priority (as a number) on the right handside.
+/// - returns: The result of the priority subtraction.
+@discardableResult
+public func ~ <C>(lhs: C, rhs: LayoutPriority) -> C where C:LayoutConstraintGroup {
+    lhs.forEach { $0.priority = rhs }
+    return lhs
 }

@@ -16,6 +16,7 @@
 		8D864C3721B4743F0070AC14 /* Assertions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D864C3621B4743F0070AC14 /* Assertions.swift */; };
 		8DA3A5E421B5D3F100E14ECA /* ConcreteConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3A5E321B5D3F100E14ECA /* ConcreteConstraint.swift */; };
 		8DA3A5E621B5EC2D00E14ECA /* ConcreteAnchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA3A5E521B5EC2D00E14ECA /* ConcreteAnchor.swift */; };
+		8DA9C95221B9784C009F12E6 /* Iterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA9C95121B9784C009F12E6 /* Iterator.swift */; };
 		8DB331AB21B5559C001797E6 /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB331AA21B5559C001797E6 /* Constraint.swift */; };
 		8DCDF0A321B4C83200262E36 /* ConcreteConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DCDF0A221B4C83200262E36 /* ConcreteConstant.swift */; };
 		8DEC4B0C21B44B4D00F61A5E /* Autolayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DEC4AEB21B449DE00F61A5E /* Autolayout.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -48,6 +49,7 @@
 		8D864C3621B4743F0070AC14 /* Assertions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assertions.swift; sourceTree = "<group>"; };
 		8DA3A5E321B5D3F100E14ECA /* ConcreteConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcreteConstraint.swift; sourceTree = "<group>"; };
 		8DA3A5E521B5EC2D00E14ECA /* ConcreteAnchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcreteAnchor.swift; sourceTree = "<group>"; };
+		8DA9C95121B9784C009F12E6 /* Iterator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Iterator.swift; sourceTree = "<group>"; };
 		8DB331AA21B5559C001797E6 /* Constraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraint.swift; sourceTree = "<group>"; };
 		8DCDF0A221B4C83200262E36 /* ConcreteConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcreteConstant.swift; sourceTree = "<group>"; };
 		8DEC4AE821B449DE00F61A5E /* Autolayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Autolayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,6 +161,7 @@
 				8DEC4B1721B44D0900F61A5E /* Expression.swift */,
 				8D864C3421B46BCB0070AC14 /* Comparisons.swift */,
 				8DA3A5E221B5D3D000E14ECA /* Constraint */,
+				8DA9C95121B9784C009F12E6 /* Iterator.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 				8DEC4B1D21B44DD700F61A5E /* Priority.swift in Sources */,
 				8DB331AB21B5559C001797E6 /* Constraint.swift in Sources */,
 				8DA3A5E421B5D3F100E14ECA /* ConcreteConstraint.swift in Sources */,
+				8DA9C95221B9784C009F12E6 /* Iterator.swift in Sources */,
 				8DA3A5E621B5EC2D00E14ECA /* ConcreteAnchor.swift in Sources */,
 				8DEC4B1321B44CA300F61A5E /* Anchor.swift in Sources */,
 				8D864C3521B46BCB0070AC14 /* Comparisons.swift in Sources */,
