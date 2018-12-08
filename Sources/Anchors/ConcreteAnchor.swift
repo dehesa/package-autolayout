@@ -66,6 +66,10 @@ public struct LayoutSizeAnchor: LayoutAnchorPair {
     var anchors: (NSLayoutDimension, NSLayoutDimension) {
         return (self.widthAnchor, self.heightAnchor)
     }
+    
+    public static var isInset: Bool {
+        return false
+    }
 }
 
 extension LayoutSizeAnchor: LayoutAnchorConstant {
@@ -99,6 +103,10 @@ public struct LayoutCenterCenterAnchor: LayoutAnchorPair {
     var anchors: (NSLayoutXAxisAnchor, NSLayoutYAxisAnchor) {
         return (self.x, self.y)
     }
+    
+    public static var isInset: Bool {
+        return false
+    }
 }
 
 /// A layout anchor representing the top and bottom boundaries of the object generating this instance.
@@ -114,6 +122,10 @@ public struct LayoutVerticalAnchor: LayoutAnchorPair {
     
     var anchors: (NSLayoutYAxisAnchor, NSLayoutYAxisAnchor) {
         return (self.top, self.bottom)
+    }
+    
+    public static var isInset: Bool {
+        return true
     }
 }
 
@@ -131,6 +143,10 @@ public struct LayoutHorizontalAnchor: LayoutAnchorPair {
     var anchors: (NSLayoutXAxisAnchor, NSLayoutXAxisAnchor) {
         return (self.left, self.right)
     }
+    
+    public static var isInset: Bool {
+        return true
+    }
 }
 
 /// A layout anchor representing the leading and trailing boundaries of the object generating this instance.
@@ -146,6 +162,10 @@ public struct LayoutDirectionalAnchor: LayoutAnchorPair {
     
     var anchors: (NSLayoutXAxisAnchor, NSLayoutXAxisAnchor) {
         return (self.leading, self.trailing)
+    }
+    
+    public static var isInset: Bool {
+        return true
     }
 }
 
@@ -166,6 +186,10 @@ public struct LayoutEdgeAnchor: LayoutAnchorQuartet {
     var anchors: (NSLayoutYAxisAnchor, NSLayoutXAxisAnchor, NSLayoutYAxisAnchor, NSLayoutXAxisAnchor) {
         return (self.top, self.left, self.bottom, self.right)
     }
+    
+    public static var isInset: Bool {
+        return true
+    }
 }
 
 public struct LayoutDirectionalEdgeAnchor: LayoutAnchorQuartet {
@@ -182,5 +206,9 @@ public struct LayoutDirectionalEdgeAnchor: LayoutAnchorQuartet {
     
     var anchors: (NSLayoutYAxisAnchor, NSLayoutXAxisAnchor, NSLayoutYAxisAnchor, NSLayoutXAxisAnchor) {
         return (self.top, self.leading, self.bottom, self.trailing)
+    }
+    
+    public static var isInset: Bool {
+        return true
     }
 }

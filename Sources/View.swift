@@ -27,9 +27,10 @@ extension LayoutView {
     /// Prepares the given parameter view to work in autolayout, adds it to the receiver view hierarchy, and executes (immediately) the given closure.
     /// - parameter view: The view to be added to the receiver view hierarchy.
     /// - parameter constraintGenerator: Closure typically used to define constraint for the receiving view.
-    public func addSubview(_ view: LayoutView, constraintGenerator: (_ view: LayoutView)->()) {
+    /// - parameter superview: The view receiving the `addSubview(_:)` method call.
+    public func addSubview<V>(_ view: V, constraintGenerator: (_ superview: LayoutView, _ view: V)->()) where V:LayoutView {
         view.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(view)
-        constraintGenerator(view)
+        constraintGenerator(self, view)
     }
 }

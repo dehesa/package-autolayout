@@ -65,12 +65,28 @@ public func + <A>(lhs: A, rhs: A.Constant) -> LayoutExpression<A> where A:Layout
     return .init(anchor: lhs, constant: rhs)
 }
 
+/// Operation setting a constant (right handside) and the layout anchor group (left handside).
+/// - parameter lsh: The anchor group for the layout expression.
+/// - parameter rhs: The constant (as inset) for the layout expression.
+/// - return: A layout expression with the default values and the given anchor group and constant.
+public func + <A,C>(lhs: A, rhs: C) -> LayoutExpression<A> where A:LayoutAnchorGroup, C:BinaryFloatingPoint {
+    return .init(anchor: lhs, constant: .init(CGFloat(rhs)))
+}
+
 /// Operation setting a layout constant (right handside) and the layout anchor (left handside).
 /// - parameter lsh: The anchor for the layout expression.
 /// - parameter rhs: The constant for the layout expression.
 /// - return: A layout expression with the default values and the given anchor and constant.
 public func - <A>(lhs: A, rhs: A.Constant) -> LayoutExpression<A> where A:LayoutAnchor {
     return .init(anchor: lhs, constant: -rhs)
+}
+
+///// Operation setting a constant (right handside) and the layout anchor group (left handside).
+///// - parameter lsh: The anchor group for the layout expression.
+///// - parameter rhs: The constant (as inset) for the layout expression.
+///// - return: A layout expression with the default values and the given anchor group and constant.
+public func - <A,C>(lhs: A, rhs: C) -> LayoutExpression<A> where A:LayoutAnchorGroup, C:BinaryFloatingPoint {
+    return .init(anchor: lhs, constant: .init(-CGFloat(rhs)))
 }
 
 // MARK: - Expression & Constants

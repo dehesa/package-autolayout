@@ -78,10 +78,6 @@ extension LayoutConstantPair {
         self.init(0, 0)
     }
     
-    public init(_ value: CGFloat) {
-        self.init(value, value)
-    }
-    
     public init<S>(_ sequence: S) where S : Sequence, S.Element == CGFloat {
         var iterator = sequence.makeIterator()
         self.init(iterator.next() ?? 0, iterator.next() ?? 0)
@@ -137,10 +133,6 @@ extension LayoutConstantQuartet {
     
     public init() {
         self.init(0, 0, 0, 0)
-    }
-    
-    public init(_ value: CGFloat) {
-        self.init(value, value, value, value)
     }
     
     public init<S>(_ sequence: S) where S : Sequence, S.Element == CGFloat {

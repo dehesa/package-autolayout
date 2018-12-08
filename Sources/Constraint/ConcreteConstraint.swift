@@ -203,6 +203,11 @@ extension NSLayoutConstraint {
             (self.left, self.right) = (left, right)
         }
         
+        /// Convenience initializer where the single constraint will be extracted.
+        public init(vertical: NSLayoutConstraint.Vertical, horizontal: NSLayoutConstraint.Horizontal) {
+            self.init(top: vertical.top, left: horizontal.left, bottom: vertical.bottom, right: horizontal.right)
+        }
+        
         public init?<S>(_ sequence: S) where S : Sequence, S.Element == NSLayoutConstraint {
             var iterator = sequence.makeIterator()
             guard let top = iterator.next(),
@@ -233,9 +238,15 @@ extension NSLayoutConstraint {
         /// The trailing constraint.
         public var trailing: NSLayoutConstraint
         
+        /// Designated initializer specifying every single constraint.
         public init(top: NSLayoutConstraint, leading: NSLayoutConstraint, bottom: NSLayoutConstraint, trailing: NSLayoutConstraint) {
             (self.top, self.bottom) = (top, bottom)
             (self.leading, self.trailing) = (leading, trailing)
+        }
+        
+        /// Convenience initializer where the single constraint will be extracted.
+        public init(vertical: NSLayoutConstraint.Vertical, directional: NSLayoutConstraint.Directional) {
+            self.init(top: vertical.top, leading: directional.leading, bottom: vertical.bottom, trailing: directional.trailing)
         }
         
         public init?<S>(_ sequence: S) where S : Sequence, S.Element == NSLayoutConstraint {

@@ -21,6 +21,10 @@ extension CGPoint: LayoutConstantPair {
         self.init(x: first, y: second)
     }
     
+    public init(_ value: CGFloat) {
+        self.init(value, value)
+    }
+    
     var values: (CGFloat, CGFloat) {
         get { return (self.x, self.y) }
         set { self.x = newValue.0; self.y = newValue.1 }
@@ -32,6 +36,10 @@ extension CGSize: LayoutConstantPair {
     
     init(_ first: CGFloat, _ second: CGFloat) {
         self.init(width: first, height: second)
+    }
+    
+    public init(_ value: CGFloat) {
+        self.init(value, value)
     }
     
     var values: (CGFloat, CGFloat) {
@@ -59,6 +67,10 @@ public struct VerticalInsets: LayoutConstantPair {
         self.init(top: first, bottom: second)
     }
     
+    public init(_ value: CGFloat) {
+        self.init(value, -value)
+    }
+    
     var values: (CGFloat, CGFloat) {
         get { return (self.top, self.bottom) }
         set { self.top = newValue.0; self.bottom = newValue.1 }
@@ -82,6 +94,10 @@ public struct HorizontalInsets: LayoutConstantPair {
     
     init(_ first: CGFloat, _ second: CGFloat) {
         self.init(left: first, right: second)
+    }
+    
+    public init(_ value: CGFloat) {
+        self.init(value, -value)
     }
     
     var values: (CGFloat, CGFloat) {
@@ -109,6 +125,10 @@ public struct DirectionalInsets: LayoutConstantPair {
         self.init(leading: first, trailing: second)
     }
     
+    public init(_ value: CGFloat) {
+        self.init(value, -value)
+    }
+    
     var values: (CGFloat, CGFloat) {
         get { return (self.leading, self.trailing) }
         set { self.leading = newValue.0; self.trailing = newValue.1 }
@@ -123,6 +143,10 @@ extension EdgeInsets: LayoutConstantQuartet {
         self.init(top: first, left: second, bottom: third, right: fourth)
     }
     
+    public init(_ value: CGFloat) {
+        self.init(value, value, -value, -value)
+    }
+    
     var values: (CGFloat, CGFloat, CGFloat, CGFloat) {
         get { return (self.top, self.left, self.bottom, self.right) }
         set { self.top = newValue.0; self.left = newValue.1; self.bottom = newValue.2; self.right = newValue.3 }
@@ -135,6 +159,10 @@ extension DirectionalEdgeInsets: LayoutConstantQuartet {
     
     init(_ first: CGFloat, _ second: CGFloat, _ third: CGFloat, _ fourth: CGFloat) {
         self.init(top: first, leading: second, bottom: third, trailing: fourth)
+    }
+    
+    public init(_ value: CGFloat) {
+        self.init(value, value, -value, -value)
     }
     
     var values: (CGFloat, CGFloat, CGFloat, CGFloat) {
