@@ -32,7 +32,7 @@ extension NSLayoutConstraint {
     /// Constraints group defining the width and height of an object.
     ///
     /// This is basically a container for the witdth and height dimensional constraints.
-    public struct Size: LayoutConstraintGroup {
+    public final class Size: LayoutConstraintGroup {
         public typealias Constant = CGSize
         public typealias Identifier = (String?, String?)
         public typealias Activity = (Bool, Bool)
@@ -48,7 +48,7 @@ extension NSLayoutConstraint {
             (self.width, self.height) = (width, height)
         }
         
-        public init?<S>(_ sequence: S) where S : Sequence, S.Element == NSLayoutConstraint {
+        public convenience init?<S>(_ sequence: S) where S : Sequence, S.Element == NSLayoutConstraint {
             var iterator = sequence.makeIterator()
             guard let width = iterator.next(),
                   let height = iterator.next() else { return nil }
@@ -63,7 +63,7 @@ extension NSLayoutConstraint {
     /// Constraint group defining the center X and Y of an object.
     ///
     /// This is basically a container for the center X and Y constraints.
-    public struct Center: LayoutConstraintGroup {
+    public final class Center: LayoutConstraintGroup {
         public typealias Constant = CGPoint
         public typealias Identifier = (String?, String?)
         public typealias Activity = (Bool, Bool)
@@ -79,7 +79,7 @@ extension NSLayoutConstraint {
             (self.x, self.y) = (x, y)
         }
         
-        public init?<S>(_ sequence: S) where S : Sequence, S.Element == NSLayoutConstraint {
+        public convenience init?<S>(_ sequence: S) where S : Sequence, S.Element == NSLayoutConstraint {
             var iterator = sequence.makeIterator()
             guard let x = iterator.next(),
                   let y = iterator.next() else { return nil }
@@ -92,7 +92,7 @@ extension NSLayoutConstraint {
     }
     
     /// Constraint group defining the top and bottom vertical constraints of an object.
-    public struct Vertical: LayoutConstraintGroup {
+    public final class Vertical: LayoutConstraintGroup {
         public typealias Constant = VerticalInsets
         public typealias Identifier = (String?, String?)
         public typealias Activity = (Bool, Bool)
@@ -108,7 +108,7 @@ extension NSLayoutConstraint {
             (self.top, self.bottom) = (top, bottom)
         }
         
-        public init?<S>(_ sequence: S) where S : Sequence, S.Element == NSLayoutConstraint {
+        public convenience init?<S>(_ sequence: S) where S : Sequence, S.Element == NSLayoutConstraint {
             var iterator = sequence.makeIterator()
             guard let top = iterator.next(), let bottom = iterator.next() else { return nil }
             self.init(top: top, bottom: bottom)
@@ -120,7 +120,7 @@ extension NSLayoutConstraint {
     }
     
     /// Constraint group defining the left and right constraints of an object.
-    public struct Horizontal: LayoutConstraintGroup {
+    public final class Horizontal: LayoutConstraintGroup {
         public typealias Constant = HorizontalInsets
         public typealias Identifier = (String?, String?)
         public typealias Activity = (Bool, Bool)
@@ -136,7 +136,7 @@ extension NSLayoutConstraint {
             (self.left, self.right) = (left, right)
         }
         
-        public init?<S>(_ sequence: S) where S : Sequence, S.Element == NSLayoutConstraint {
+        public convenience init?<S>(_ sequence: S) where S : Sequence, S.Element == NSLayoutConstraint {
             var iterator = sequence.makeIterator()
             guard let left = iterator.next(),
                   let right = iterator.next() else { return nil }
@@ -149,7 +149,7 @@ extension NSLayoutConstraint {
     }
     
     /// Constraint group defining the leading and trailing constraints of an object.
-    public struct Directional: LayoutConstraintGroup {
+    public final class Directional: LayoutConstraintGroup {
         public typealias Constant = DirectionalInsets
         public typealias Identifier = (String?, String?)
         public typealias Activity = (Bool, Bool)
@@ -165,7 +165,7 @@ extension NSLayoutConstraint {
             (self.leading, self.trailing) = (leading, trailing)
         }
         
-        public init?<S>(_ sequence: S) where S : Sequence, S.Element == NSLayoutConstraint {
+        public convenience init?<S>(_ sequence: S) where S : Sequence, S.Element == NSLayoutConstraint {
             var iterator = sequence.makeIterator()
             guard let leading = iterator.next(),
                   let trailing = iterator.next() else { return nil }
@@ -182,7 +182,7 @@ extension NSLayoutConstraint {
 
 extension NSLayoutConstraint {
     /// Constraint group defining the top, left, bottom, right constraint of an object.
-    public struct Edges: LayoutConstraintGroup {
+    public final class Edges: LayoutConstraintGroup {
         public typealias Constant = EdgeInsets
         public typealias Identifier = (String?, String?, String?, String?)
         public typealias Activity = (Bool, Bool, Bool, Bool)
@@ -204,11 +204,11 @@ extension NSLayoutConstraint {
         }
         
         /// Convenience initializer where the single constraint will be extracted.
-        public init(vertical: NSLayoutConstraint.Vertical, horizontal: NSLayoutConstraint.Horizontal) {
+        public convenience init(vertical: NSLayoutConstraint.Vertical, horizontal: NSLayoutConstraint.Horizontal) {
             self.init(top: vertical.top, left: horizontal.left, bottom: vertical.bottom, right: horizontal.right)
         }
         
-        public init?<S>(_ sequence: S) where S : Sequence, S.Element == NSLayoutConstraint {
+        public convenience init?<S>(_ sequence: S) where S : Sequence, S.Element == NSLayoutConstraint {
             var iterator = sequence.makeIterator()
             guard let top = iterator.next(),
                   let left = iterator.next(),
@@ -223,7 +223,7 @@ extension NSLayoutConstraint {
     }
     
     /// Constraint group defining the top, leading, bottom, right constraints of an object.
-    public struct DirectionalEdges: LayoutConstraintGroup {
+    public final class DirectionalEdges: LayoutConstraintGroup {
         public typealias Constant = DirectionalEdgeInsets
         public typealias Identifier = (String?, String?, String?, String?)
         public typealias Activity = (Bool, Bool, Bool, Bool)
@@ -245,11 +245,11 @@ extension NSLayoutConstraint {
         }
         
         /// Convenience initializer where the single constraint will be extracted.
-        public init(vertical: NSLayoutConstraint.Vertical, directional: NSLayoutConstraint.Directional) {
+        public convenience init(vertical: NSLayoutConstraint.Vertical, directional: NSLayoutConstraint.Directional) {
             self.init(top: vertical.top, leading: directional.leading, bottom: vertical.bottom, trailing: directional.trailing)
         }
         
-        public init?<S>(_ sequence: S) where S : Sequence, S.Element == NSLayoutConstraint {
+        public convenience init?<S>(_ sequence: S) where S : Sequence, S.Element == NSLayoutConstraint {
             var iterator = sequence.makeIterator()
             guard let top = iterator.next(),
                   let leading = iterator.next(),

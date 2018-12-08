@@ -22,7 +22,7 @@ public protocol LayoutConstraint {
 }
 
 /// Defines a group where all constraints work to target the same objective.
-public protocol LayoutConstraintGroup: LayoutConstraint, Sequence where
+public protocol LayoutConstraintGroup: class, LayoutConstraint, Sequence where
             Self.Constant: LayoutConstantGroup,
             Self.Element == NSLayoutConstraint {
     /// Creates a new constraint group from the given sequence.
