@@ -3,7 +3,7 @@ import Autolayout
 
 /// Asserts than `lhs` is identical to `rhs`.
 func assertIdentity(_ lhs: AnyObject?, _ rhs: AnyObject?, _ message: @autoclosure ()->String = "Argument are not identical", file: StaticString = #file, line: UInt = #line) {
-    XCTAssertTrue(lhs === rhs, message, file: file, line: line)
+    XCTAssertTrue(lhs === rhs, message(), file: file, line: line)
 }
 
 /// Asserts that the values of the passed constraint are the ones of the given arguments.
