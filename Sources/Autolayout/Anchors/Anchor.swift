@@ -1,7 +1,9 @@
-#if canImport(QuartzCore)
-import QuartzCore
+#if canImport(UIKit)
+import UIKit
+#elseif canImport(Cocoa)
+import Cocoa
 #else
-#error("CGFloat types are not supported")
+#error("OS not supported")
 #endif
 
 /// Concrete types conforming to this protocol represent a layout anchor used in Autolayout.

@@ -16,6 +16,13 @@ final class ActivityTests: XCTestCase {
         self.viewA.removeFromSuperview()
         self.viewB.removeFromSuperview()
     }
+    
+    static var allTests = [
+        ("testPostfixActive", testPostfixActive),
+        ("testPostfixInactive", testPostfixInactive),
+        ("testInfixActive", testInfixActive),
+        ("testInfixInactive", testInfixInactive)
+    ]
 }
 
 extension ActivityTests {

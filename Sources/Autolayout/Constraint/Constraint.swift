@@ -1,3 +1,11 @@
+#if canImport(UIKit)
+import UIKit
+#elseif canImport(Cocoa)
+import Cocoa
+#else
+#error("OS not supported")
+#endif
+
 /// Protocol defining the basic functionality of a constraint (or group of constraints).
 public protocol LayoutConstraint {
     /// The constant used on the layout constraint expressions.

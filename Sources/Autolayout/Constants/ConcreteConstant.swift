@@ -5,7 +5,7 @@ public typealias DirectionalEdgeInsets = NSDirectionalEdgeInsets
 #elseif canImport(Cocoa)
 import Cocoa
 public typealias EdgeInsets = NSEdgeInsets
-#warning("TODO: Create a DirectionalEdgeInsets for macOS")
+public typealias DirectionalEdgeInsets = NSDirectionalEdgeInsets
 #else
 #error("OS not supported")
 #endif

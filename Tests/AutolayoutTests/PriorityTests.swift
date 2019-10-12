@@ -2,6 +2,17 @@ import XCTest
 import Autolayout
 
 final class PriorityTests: XCTestCase {
+    static var allTests = [
+        ("testAssignment", testAssignment),
+        ("testIntegerAssignment", testIntegerAssignment),
+        ("testNumericAssignment", testNumericAssignment),
+        ("testIntegerOperationAssignment", testIntegerOperationAssignment),
+        ("testNumericOperationAssignment", testNumericOperationAssignment),
+        ("testNumericOperationsAssignment", testNumericOperationsAssignment),
+        ("testIntegerOperations", testIntegerOperations),
+        ("testNumericOperations", testNumericOperations)
+    ]
+    
     func testAssignment() {
         let priority: LayoutPriority = .required
         XCTAssertEqual(priority.rawValue, LayoutPriority.required.rawValue, accuracy: .epsilon)
@@ -63,6 +74,11 @@ final class PriorityConstraintTests: XCTestCase {
 }
 
 extension PriorityConstraintTests {
+    static var allTests = [
+        ("testBasicConstraintPriority", testBasicConstraintPriority),
+        ("testBasicConstraintNumberPriority", testBasicConstraintNumberPriority)
+    ]
+    
     /// Tests the basic priority setting for constraints.
     func testBasicConstraintPriority() {
         let constraint = NSLayoutConstraint(item: viewA, attribute: .width, relatedBy: .equal, toItem: viewB, attribute: .width, multiplier: 1, constant: 0)

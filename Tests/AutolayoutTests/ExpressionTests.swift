@@ -27,6 +27,29 @@ final class ExpressionTests: XCTestCase {
         self.viewA.removeFromSuperview()
         self.viewB.removeFromSuperview()
     }
+    
+    static var allTests = [
+        ("testBasicEquality", testBasicEquality),
+        ("testBasicConstantEquality", testBasicConstantEquality),
+        ("testBasicSwapEquality", testBasicSwapEquality),
+        ("testBasicLessThan", testBasicLessThan),
+        ("testBasicConstantLessThan", testBasicConstantLessThan),
+        ("testBasicGreaterThan", testBasicGreaterThan),
+        ("testBasicConstantGreaterThan", testBasicConstantGreaterThan),
+        ("testBasicLeftMultiplication", testBasicLeftMultiplication),
+        ("testBasicRightMultiplication", testBasicRightMultiplication),
+        ("testBasicDivision", testBasicDivision),
+        ("testBasicAddition", testBasicAddition),
+        ("testBasicSubtraction", testBasicSubtraction),
+        ("testBasicPriority", testBasicPriority),
+        ("testBasicNumericPriority", testBasicNumericPriority),
+        ("testMultiplicationAddition", testMultiplicationAddition),
+        ("testMultiplicationSubtraction", testMultiplicationSubtraction),
+        ("testDivisionAddition", testDivisionAddition),
+        ("testMultiplicationPriority", testMultiplicationPriority),
+        ("testDivisionNumericPriority", testDivisionNumericPriority),
+        ("testNumericPriorityOperations", testNumericPriorityOperations)
+    ]
 }
 
 extension CGFloat {

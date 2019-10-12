@@ -1,3 +1,11 @@
+#if canImport(UIKit)
+import UIKit
+#elseif canImport(Cocoa)
+import Cocoa
+#else
+#error("OS not supported")
+#endif
+
 // MARK: Postfix
 
 postfix operator ↑
