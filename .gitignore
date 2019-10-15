@@ -33,10 +33,11 @@ timeline.xctimeline
 playground.xcworkspace
 
 # Swift Package Manager
+.swiftpm
+.build/
 Packages/
 Package.pins
 Package.resolved
-.build/
 
 # Carthage
 Carthage
