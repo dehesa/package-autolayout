@@ -4,7 +4,7 @@
 
 Non verbose way to create constraints and work with anchors.
 
-![Swift 5.1](https://img.shields.io/badge/Swift-5.1-orange.svg) ![platforms](https://img.shields.io/badge/platforms-iOS%20%7C%20macOS%20%7C%20tvOS-lightgrey.svg) [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
+![Swift 5.2](https://img.shields.io/badge/Swift-5.2-orange.svg) ![platforms](https://img.shields.io/badge/platforms-iOS%20%7C%20macOS%20%7C%20tvOS-lightgrey.svg) [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
 
 This framework provides:
 - **Operators** (custom and overloads) for anchors and constraints.

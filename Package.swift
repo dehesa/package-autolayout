@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.2
 import PackageDescription
 
 let package = Package(
@@ -7,17 +7,11 @@ let package = Package(
         .iOS(.v12), .tvOS(.v12), .macOS(.v10_15)
     ],
     products: [
-        .library(
-            name: "Autolayout",
-            targets: ["Autolayout"]),
+        .library(name: "Autolayout", targets: ["Autolayout"]),
     ],
     dependencies: [],
     targets: [
-        .target(
-            name: "Autolayout",
-            dependencies: []),
-        .testTarget(
-            name: "AutolayoutTests",
-            dependencies: ["Autolayout"]),
+        .target(name: "Autolayout", dependencies: []),
+        .testTarget(name: "AutolayoutTests", dependencies: ["Autolayout"]),
     ]
 )
