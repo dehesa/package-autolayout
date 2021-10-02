@@ -10,9 +10,9 @@ public typealias LayoutPriority = UILayoutPriority
 
 extension LayoutPriority: ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
   /// The priority level with which a button resists compressing its content.
-  public static var high: LayoutPriority { return .defaultHigh }
+  @_transparent public static var high: LayoutPriority { .defaultHigh }
   /// The priority level at which a button hugs its contents horizontally.
-  public static var low: LayoutPriority { return .defaultLow }
+  @_transparent public static var low: LayoutPriority { .defaultLow }
 
   public init(integerLiteral value: IntegerLiteralType) {
     self.init(Float(value))

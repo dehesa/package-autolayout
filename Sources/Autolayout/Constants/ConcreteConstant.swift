@@ -15,15 +15,15 @@ extension CGFloat: LayoutConstant {}
 extension CGPoint: LayoutConstantPair {
   public typealias Iterator = LayoutIteratorPair<CGFloat>
 
-  init(_ first: CGFloat, _ second: CGFloat) {
+  @usableFromInline init(_ first: CGFloat, _ second: CGFloat) {
     self.init(x: first, y: second)
   }
 
-  public init(_ value: CGFloat) {
-    self.init(value, value)
+  @_transparent public init(_ value: CGFloat) {
+    self.init(x: value, y: value)
   }
 
-  var values: (CGFloat, CGFloat) {
+  @_transparent var values: (CGFloat, CGFloat) {
     get { (self.x, self.y) }
     set { self.x = newValue.0; self.y = newValue.1 }
   }
@@ -32,15 +32,15 @@ extension CGPoint: LayoutConstantPair {
 extension CGSize: LayoutConstantPair {
   public typealias Iterator = LayoutIteratorPair<CGFloat>
 
-  init(_ first: CGFloat, _ second: CGFloat) {
+  @usableFromInline init(_ first: CGFloat, _ second: CGFloat) {
     self.init(width: first, height: second)
   }
 
-  public init(_ value: CGFloat) {
-    self.init(value, value)
+  @_transparent public init(_ value: CGFloat) {
+    self.init(width: value, height: value)
   }
 
-  var values: (CGFloat, CGFloat) {
+  @_transparent var values: (CGFloat, CGFloat) {
     get { (self.width, self.height) }
     set { self.width = newValue.0; self.height = newValue.1 }
   }
@@ -61,20 +61,22 @@ public struct VerticalInsets: LayoutConstantPair {
     (self.top, self.bottom) = (top, bottom)
   }
 
-  init(_ first: CGFloat, _ second: CGFloat) {
+  @usableFromInline init(_ first: CGFloat, _ second: CGFloat) {
     self.init(top: first, bottom: second)
   }
 
-  public init(_ value: CGFloat) {
-    self.init(value, -value)
+  @_transparent public init(_ value: CGFloat) {
+    self.init(top: value, bottom: -value)
   }
 
-  var values: (CGFloat, CGFloat) {
+  @_transparent var values: (CGFloat, CGFloat) {
     get { (self.top, self.bottom) }
     set { self.top = newValue.0; self.bottom = newValue.1 }
   }
 
-  public static var zero: Self { Self(.zero, .zero) }
+  @_transparent public static var zero: Self {
+    Self(top: .zero, bottom: .zero)
+  }
 }
 
 /// Represents a horizontal shift for the left and right anchors.
@@ -92,20 +94,22 @@ public struct HorizontalInsets: LayoutConstantPair {
     (self.left, self.right) = (left, right)
   }
 
-  init(_ first: CGFloat, _ second: CGFloat) {
+  @usableFromInline init(_ first: CGFloat, _ second: CGFloat) {
     self.init(left: first, right: second)
   }
 
-  public init(_ value: CGFloat) {
-    self.init(value, -value)
+  @_transparent public init(_ value: CGFloat) {
+    self.init(left: value, right: -value)
   }
 
-  var values: (CGFloat, CGFloat) {
+  @_transparent var values: (CGFloat, CGFloat) {
     get { (self.left, self.right) }
     set { self.left = newValue.0; self.right = newValue.1 }
   }
 
-  public static var zero: Self { Self(.zero, .zero) }
+  @_transparent public static var zero: Self {
+    Self(left: .zero, right: .zero)
+  }
 }
 
 /// Represents a horizontal shift for the leading and trailing anchors.
@@ -123,40 +127,65 @@ public struct DirectionalInsets: LayoutConstantPair {
     (self.leading, self.trailing) = (leading, trailing)
   }
 
-  init(_ first: CGFloat, _ second: CGFloat) {
+  @usableFromInline init(_ first: CGFloat, _ second: CGFloat) {
     self.init(leading: first, trailing: second)
   }
 
-  public init(_ value: CGFloat) {
-    self.init(value, -value)
+  @_transparent public init(_ value: CGFloat) {
+    self.init(leading: value, trailing: -value)
   }
 
-  var values: (CGFloat, CGFloat) {
+  @_transparent var values: (CGFloat, CGFloat) {
     get { (self.leading, self.trailing) }
     set { self.leading = newValue.0; self.trailing = newValue.1 }
   }
 
-  public static var zero: Self { Self(.zero, .zero) }
+  @_transparent public static var zero: Self {
+    Self(leading: .zero, trailing: .zero)
+  }
 }
 
 /// Represents a horizontal and vertical shift for the top, left, bottom, right anchors.
 extension EdgeInsets: LayoutConstantQuartet {
   public typealias Iterator = LayoutIteratorQuartet<CGFloat>
 
-  init(_ first: CGFloat, _ second: CGFloat, _ third: CGFloat, _ fourth: CGFloat) {
+  @usableFromInline init(_ first: CGFloat, _ second: CGFloat, _ third: CGFloat, _ fourth: CGFloat) {
     self.init(top: first, left: second, bottom: third, right: fourth)
   }
 
-  public init(_ value: CGFloat) {
-    self.init(value, value, -value, -value)
+  @_transparent public init(_ value: CGFloat) {
+    self.init(top: value, left: value, bottom: -value, right: -value)
   }
 
-  var values: (CGFloat, CGFloat, CGFloat, CGFloat) {
+  public init<S>(_ sequence: S) where S: Sequence, S.Element == CGFloat {
+    var iterator = sequence.makeIterator()
+    guard let first = iterator.next() else {
+      self.init(); return
+    }
+
+    guard let second = iterator.next() else {
+      self.init(first); return
+    }
+
+    guard let third = iterator.next() else {
+      self.init(top: first, left: second, bottom: -first, right: -second); return
+    }
+
+    guard let fourth = iterator.next() else {
+      self.init(top: first, left: second, bottom: third, right: .zero); return
+    }
+
+    self.init(first, second, third, fourth)
+  }
+
+  @_transparent var values: (CGFloat, CGFloat, CGFloat, CGFloat) {
     get { (self.top, self.left, self.bottom, self.right) }
     set { self.top = newValue.0; self.left = newValue.1; self.bottom = newValue.2; self.right = newValue.3 }
   }
 
-  public static var zero: Self { Self(.zero) }
+  @_transparent public static var zero: Self {
+    Self(.zero)
+  }
 
   public static func == (lhs: Self, rhs: Self) -> Bool {
     (lhs.left == rhs.left) && (lhs.right == rhs.right) && (lhs.top == rhs.top) && (lhs.bottom == rhs.bottom)
@@ -167,20 +196,43 @@ extension EdgeInsets: LayoutConstantQuartet {
 extension DirectionalEdgeInsets: LayoutConstantQuartet {
   public typealias Iterator = LayoutIteratorQuartet<CGFloat>
 
-  init(_ first: CGFloat, _ second: CGFloat, _ third: CGFloat, _ fourth: CGFloat) {
+  @usableFromInline init(_ first: CGFloat, _ second: CGFloat, _ third: CGFloat, _ fourth: CGFloat) {
     self.init(top: first, leading: second, bottom: third, trailing: fourth)
   }
 
-  public init(_ value: CGFloat) {
-    self.init(value, value, -value, -value)
+  @_transparent public init(_ value: CGFloat) {
+    self.init(top: value, leading: value, bottom: -value, trailing: -value)
   }
 
-  var values: (CGFloat, CGFloat, CGFloat, CGFloat) {
+  public init<S>(_ sequence: S) where S: Sequence, S.Element == CGFloat {
+    var iterator = sequence.makeIterator()
+    guard let first = iterator.next() else {
+      self.init(); return
+    }
+
+    guard let second = iterator.next() else {
+      self.init(first); return
+    }
+
+    guard let third = iterator.next() else {
+      self.init(top: first, leading: second, bottom: -first, trailing: -second); return
+    }
+
+    guard let fourth = iterator.next() else {
+      self.init(top: first, leading: second, bottom: third, trailing: .zero); return
+    }
+
+    self.init(first, second, third, fourth)
+  }
+
+  @_transparent var values: (CGFloat, CGFloat, CGFloat, CGFloat) {
     get { (self.top, self.leading, self.bottom, self.trailing) }
     set { self.top = newValue.0; self.leading = newValue.1; self.bottom = newValue.2; self.trailing = newValue.3 }
   }
 
-  public static var zero: Self { Self(.zero) }
+  @_transparent public static var zero: Self {
+    Self(.zero)
+  }
 
   public static func == (lhs: Self, rhs: Self) -> Bool {
     (lhs.leading == rhs.leading) && (lhs.trailing == rhs.trailing) && (lhs.top == rhs.top) && (lhs.bottom == rhs.bottom)

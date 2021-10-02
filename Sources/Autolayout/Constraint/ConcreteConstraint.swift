@@ -34,9 +34,9 @@ extension NSLayoutConstraint {
     public typealias Priority = (LayoutPriority, LayoutPriority)
 
     /// The width dimensional constraint.
-    public var width: NSLayoutConstraint
+    public let width: NSLayoutConstraint
     /// The height dimensional constraint.
-    public var height: NSLayoutConstraint
+    public let height: NSLayoutConstraint
 
     /// Designated initializer passing the width and height dimensional constraints.
     public init(width: NSLayoutConstraint, height: NSLayoutConstraint) {
@@ -64,9 +64,9 @@ extension NSLayoutConstraint {
     public typealias Priority = (LayoutPriority, LayoutPriority)
 
     /// The center X constraint.
-    public var x: NSLayoutConstraint
+    public let x: NSLayoutConstraint
     /// The center Y constraint.
-    public var y: NSLayoutConstraint
+    public let y: NSLayoutConstraint
 
     /// Designated initializer passing the center X and Y constraints.
     public init(x: NSLayoutConstraint, y: NSLayoutConstraint) {
@@ -92,9 +92,9 @@ extension NSLayoutConstraint {
     public typealias Priority = (LayoutPriority, LayoutPriority)
 
     /// The top constraint.
-    public var top: NSLayoutConstraint
+    public let top: NSLayoutConstraint
     /// The bottom constraint.
-    public var bottom: NSLayoutConstraint
+    public let bottom: NSLayoutConstraint
 
     /// Designated initializer passing the top and bottom constraints.
     public init(top: NSLayoutConstraint, bottom: NSLayoutConstraint) {
@@ -120,9 +120,9 @@ extension NSLayoutConstraint {
     public typealias Priority = (LayoutPriority, LayoutPriority)
 
     /// The left constraint.
-    public var left: NSLayoutConstraint
+    public let left: NSLayoutConstraint
     /// The right constraint.
-    public var right: NSLayoutConstraint
+    public let right: NSLayoutConstraint
 
     /// Designated initializer passing the left and right constraints.
     public init(left: NSLayoutConstraint, right: NSLayoutConstraint) {
@@ -148,9 +148,9 @@ extension NSLayoutConstraint {
     public typealias Priority = (LayoutPriority, LayoutPriority)
 
     /// The leading constraint.
-    public var leading: NSLayoutConstraint
+    public let leading: NSLayoutConstraint
     /// The trailing constraint.
-    public var trailing: NSLayoutConstraint
+    public let trailing: NSLayoutConstraint
 
     /// Designated initializer passing the leading and trailing constraints.
     public init(leading: NSLayoutConstraint, trailing: NSLayoutConstraint) {
@@ -180,13 +180,13 @@ extension NSLayoutConstraint {
     public typealias Priority = (LayoutPriority, LayoutPriority, LayoutPriority, LayoutPriority)
 
     /// The top constraint.
-    public var top: NSLayoutConstraint
+    public let top: NSLayoutConstraint
     /// The left constraint.
-    public var left: NSLayoutConstraint
+    public let left: NSLayoutConstraint
     /// The bottom constraint.
-    public var bottom: NSLayoutConstraint
+    public let bottom: NSLayoutConstraint
     /// The right constraint.
-    public var right: NSLayoutConstraint
+    public let right: NSLayoutConstraint
 
     /// Designated initializer passing the top, left, bottom, right constraints.
     public init(top: NSLayoutConstraint, left: NSLayoutConstraint, bottom: NSLayoutConstraint, right: NSLayoutConstraint) {
@@ -210,7 +210,9 @@ extension NSLayoutConstraint {
       LayoutIteratorQuartet(self.top, self.left, self.bottom, self.right)
     }
   }
+}
 
+extension NSLayoutConstraint {
   /// Constraint group defining the top, leading, bottom, right constraints of an object.
   public final class DirectionalEdges: LayoutConstraintGroup {
     public typealias Constant = DirectionalEdgeInsets
@@ -219,13 +221,13 @@ extension NSLayoutConstraint {
     public typealias Priority = (LayoutPriority, LayoutPriority, LayoutPriority, LayoutPriority)
 
     /// The top constraint.
-    public var top: NSLayoutConstraint
+    public let top: NSLayoutConstraint
     /// The leading constraint.
-    public var leading: NSLayoutConstraint
+    public let leading: NSLayoutConstraint
     /// The bottom constraint.
-    public var bottom: NSLayoutConstraint
+    public let bottom: NSLayoutConstraint
     /// The trailing constraint.
-    public var trailing: NSLayoutConstraint
+    public let trailing: NSLayoutConstraint
 
     /// Designated initializer specifying every single constraint.
     public init(top: NSLayoutConstraint, leading: NSLayoutConstraint, bottom: NSLayoutConstraint, trailing: NSLayoutConstraint) {

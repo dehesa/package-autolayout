@@ -26,11 +26,10 @@ public protocol LayoutConstraint {
   var isActive: Activity { get set }
   /// The priority of the constraint or group of constraints.
   var priority: Priority { get set }
-
 }
 
 /// Defines a group where all constraints work to target the same objective.
-public protocol LayoutConstraintGroup: AnyObject, LayoutConstraint, Sequence where Self.Constant: LayoutConstantGroup, Self.Element == NSLayoutConstraint {
+public protocol LayoutConstraintGroup: AnyObject, LayoutConstraint, Sequence, ExpressibleByArrayLiteral where Self.Constant: LayoutConstantGroup, Self.Element == NSLayoutConstraint {
   /// Creates a new constraint group from the given sequence.
   ///
   /// If the sequence in the argument is not long enough, the initializer fails returning `nil`.
@@ -42,8 +41,12 @@ public protocol LayoutConstraintGroup: AnyObject, LayoutConstraint, Sequence whe
 }
 
 extension LayoutConstraintGroup {
+  public init(arrayLiteral elements: NSLayoutConstraint...) {
+    self.init(elements)!
+  }
+
   public var constant: Self.Constant {
-    get { .init(self.map { $0.constant })}
+    get { Self.Constant(self.map(\.constant)) }
     set { zip(self, newValue).forEach { $0.constant = $1 } }
   }
 }

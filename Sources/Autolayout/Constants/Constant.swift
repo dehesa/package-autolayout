@@ -5,15 +5,17 @@ import QuartzCore
 #endif
 
 /// Type used on layout Expressions to offset constraints.
-public protocol LayoutConstant: AdditiveArithmetic {
+public protocol LayoutConstant: AdditiveArithmetic, ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
   /// Initializes the constants with the default values (i.e. 0s)
   init()
   /// Operation negating the receiving constant.
   prefix static func - (operand: Self) -> Self
 }
 
+// MARK: -
+
 /// A layout constant formed by several other constants.
-public protocol LayoutConstantGroup: LayoutConstant, Sequence where Self.Element == CGFloat {
+public protocol LayoutConstantGroup: LayoutConstant, Sequence, ExpressibleByArrayLiteral where Self.Element == CGFloat {
   /// The value is copied to all members.
   init(_ value: CGFloat)
   /// Initializes the constant from a sequence.
@@ -21,6 +23,22 @@ public protocol LayoutConstantGroup: LayoutConstant, Sequence where Self.Element
   /// Zero will be paste on sequences that are not long enough.
   init<S>(_ sequence: S) where S:Sequence, S.Element == CGFloat
 }
+
+extension LayoutConstantGroup {
+  public init(integerLiteral value: Int) {
+    self.init(CGFloat(value))
+  }
+
+  public init(floatLiteral value: Double) {
+    self.init(CGFloat(value))
+  }
+
+  public init(arrayLiteral elements: Self.Element...) {
+    self.init(elements)
+  }
+}
+
+// MARK: -
 
 /// A layout constant formed by only two values.
 protocol LayoutConstantPair: LayoutConstantGroup where Self.Iterator == LayoutIteratorPair<CGFloat> {
@@ -31,6 +49,27 @@ protocol LayoutConstantPair: LayoutConstantGroup where Self.Iterator == LayoutIt
 }
 
 extension LayoutConstantPair {
+  public init() {
+    self.init(.zero, .zero)
+  }
+
+  public init<S>(_ sequence: S) where S: Sequence, S.Element == CGFloat {
+    var iterator = sequence.makeIterator()
+    guard let first = iterator.next() else {
+      self.init(); return
+    }
+
+    guard let second = iterator.next() else {
+      self.init(first); return
+    }
+
+    self.init(first, second)
+  }
+
+  public func makeIterator() -> Self.Iterator {
+    Self.Iterator(values: self.values)
+  }
+
   public static func + (lhs: Self, rhs: Self) -> Self {
     let (left, right) = (lhs.values, rhs.values)
     return .init(left.0 + right.0, left.1 + right.1)
@@ -59,20 +98,9 @@ extension LayoutConstantPair {
     let second = left.1 - right.1
     lhs.values = (first, second)
   }
-
-  public func makeIterator() -> Self.Iterator {
-    Self.Iterator(values: self.values)
-  }
-
-  public init() {
-    self.init(0, 0)
-  }
-
-  public init<S>(_ sequence: S) where S : Sequence, S.Element == CGFloat {
-    var iterator = sequence.makeIterator()
-    self.init(iterator.next() ?? 0, iterator.next() ?? 0)
-  }
 }
+
+// MARK: -
 
 /// A layout constant formed by only four values.
 protocol LayoutConstantQuartet: LayoutConstantGroup where Self.Iterator == LayoutIteratorQuartet<CGFloat> {
@@ -83,6 +111,14 @@ protocol LayoutConstantQuartet: LayoutConstantGroup where Self.Iterator == Layou
 }
 
 extension LayoutConstantQuartet {
+  public init() {
+    self.init(.zero, .zero, .zero, .zero)
+  }
+
+  public func makeIterator() -> Self.Iterator {
+    Self.Iterator(values: self.values)
+  }
+
   public static func + (lhs: Self, rhs: Self) -> Self {
     let (left, right) = (lhs.values, rhs.values)
     return .init(left.0 + right.0, left.1 + right.1, left.2 + right.2, left.3 + right.3)
@@ -114,18 +150,5 @@ extension LayoutConstantQuartet {
     let third  = left.2 - right.2
     let fourth = left.3 - right.3
     lhs.values = (first, second, third, fourth)
-  }
-
-  public func makeIterator() -> Self.Iterator {
-    Self.Iterator(values: self.values)
-  }
-
-  public init() {
-    self.init(0, 0, 0, 0)
-  }
-
-  public init<S>(_ sequence: S) where S : Sequence, S.Element == CGFloat {
-    var iterator = sequence.makeIterator()
-    self.init(iterator.next() ?? 0, iterator.next() ?? 0, iterator.next() ?? 0, iterator.next() ?? 0)
   }
 }
