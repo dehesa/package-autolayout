@@ -7,7 +7,7 @@ import UIKit
 #endif
 
 /// Protocol defining the basic functionality of a constraint (or group of constraints).
-public protocol LayoutConstraint {
+public protocol LayoutConstraint: AnyObject {
   /// The constant used on the layout constraint expressions.
   associatedtype Constant: LayoutConstant
   /// Type that will identify this constraint (or group of constraints).
@@ -29,7 +29,9 @@ public protocol LayoutConstraint {
 }
 
 /// Defines a group where all constraints work to target the same objective.
-public protocol LayoutConstraintGroup: AnyObject, LayoutConstraint, Sequence, ExpressibleByArrayLiteral where Self.Constant: LayoutConstantGroup, Self.Element == NSLayoutConstraint {
+public protocol LayoutConstraintGroup: LayoutConstraint, Sequence, ExpressibleByArrayLiteral
+  where Self.Constant: LayoutConstantGroup,
+        Self.Element == NSLayoutConstraint {
   /// Creates a new constraint group from the given sequence.
   ///
   /// If the sequence in the argument is not long enough, the initializer fails returning `nil`.
@@ -38,6 +40,8 @@ public protocol LayoutConstraintGroup: AnyObject, LayoutConstraint, Sequence, Ex
   /// - parameter root: The root identifier for all constraint elements.
   /// - parameter suffixes: The suffixes for all constraint elements.
   func identify(root: String, suffixes: Self.Identifier)
+  /// The default suffixes that will be added to the component constraint if a single identifier is provided.
+  static var defaultSuffixes: Identifier { get }
 }
 
 extension LayoutConstraintGroup {
@@ -51,11 +55,12 @@ extension LayoutConstraintGroup {
   }
 }
 
-extension LayoutConstraintGroup where Self.Constant.Iterator == LayoutIteratorPair<CGFloat>,
-                                      Self.Identifier == (String?, String?),
-                                      Self.Activity == (Bool, Bool),
-                                      Self.Priority == (LayoutPriority, LayoutPriority),
-                                      Self.Iterator == LayoutIteratorPair<NSLayoutConstraint> {
+extension LayoutConstraintGroup
+  where Self.Constant.Iterator == LayoutIteratorPair<CGFloat>,
+        Self.Identifier == (String?, String?),
+        Self.Activity == (Bool, Bool),
+        Self.Priority == (LayoutPriority, LayoutPriority),
+        Self.Iterator == LayoutIteratorPair<NSLayoutConstraint> {
   public var identifier: Self.Identifier {
     get { self.makeIterator().map { $0.identifier } }
     set { self.makeIterator().zipMap(newValue) { $0.identifier = $1 } }
@@ -80,10 +85,11 @@ extension LayoutConstraintGroup where Self.Constant.Iterator == LayoutIteratorPa
   }
 }
 
-extension LayoutConstraintGroup where Self.Identifier == (String?, String?, String?, String?),
-                                      Self.Activity == (Bool, Bool, Bool, Bool),
-                                      Self.Priority == (LayoutPriority, LayoutPriority, LayoutPriority, LayoutPriority),
-                                      Self.Iterator == LayoutIteratorQuartet<NSLayoutConstraint> {
+extension LayoutConstraintGroup
+  where Self.Identifier == (String?, String?, String?, String?),
+        Self.Activity == (Bool, Bool, Bool, Bool),
+        Self.Priority == (LayoutPriority, LayoutPriority, LayoutPriority, LayoutPriority),
+        Self.Iterator == LayoutIteratorQuartet<NSLayoutConstraint> {
   public var identifier: Self.Identifier {
     get { self.makeIterator().map { $0.identifier } }
     set { self.makeIterator().zipMap(newValue) { $0.identifier = $1 } }

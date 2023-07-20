@@ -59,9 +59,14 @@ infix operator ↑ : LogicalDisjunctionPrecedence
 /// - parameter rhs: The identifier to be assigned to all constraints in the constraint group.
 /// - returns: The modified `lhs`.
 @discardableResult @inlinable public func ↑ <C>(lhs: C, rhs: String?) -> C where C:LayoutConstraintGroup {
-  lhs.forEach {
-    $0.identifier = rhs
-    $0.isActive = true
+  if let rhs {
+    lhs.identify(root: rhs, suffixes: C.defaultSuffixes)
+    lhs.forEach { $0.isActive = true }
+  } else {
+    lhs.forEach {
+      $0.identifier = .none
+      $0.isActive = true
+    }
   }
   return lhs
 }
@@ -71,10 +76,9 @@ infix operator ↑ : LogicalDisjunctionPrecedence
 /// - parameter rhs: The identifiers to be assigned each constraint in the constraint group.
 /// - returns: The modified `lhs`.
 @discardableResult @inlinable public func ↑ <C>(lhs: C, rhs: C.Identifier) -> C where C:LayoutConstraintGroup {
-  var result = lhs
-  result.identifier = rhs
-  result.forEach { $0.isActive = true }
-  return result
+  lhs.identifier = rhs
+  lhs.forEach { $0.isActive = true }
+  return lhs
 }
 
 /// Infix operation activing and identifying the constraint group on the operation's left handside.
@@ -104,7 +108,15 @@ infix operator ↓ : LogicalDisjunctionPrecedence
 /// - parameter rhs: The identifier to be assigned to all constraints in the constraint group.
 /// - returns: The modified `lhs`.
 @discardableResult @inlinable public func ↓ <C>(lhs: C, rhs: String?) -> C where C:LayoutConstraintGroup {
-  lhs.forEach { $0.identifier = rhs; $0.isActive = false }
+  if let rhs {
+    lhs.identify(root: rhs, suffixes: C.defaultSuffixes)
+    lhs.forEach { $0.isActive = false }
+  } else {
+    lhs.forEach {
+      $0.identifier = .none
+      $0.isActive = false
+    }
+  }
   return lhs
 }
 
@@ -113,10 +125,9 @@ infix operator ↓ : LogicalDisjunctionPrecedence
 /// - parameter rhs: The identifiers to be assigned each constraint in the constraint group.
 /// - returns: The modified `lhs`.
 @discardableResult @inlinable public func ↓ <C>(lhs: C, rhs: C.Identifier) -> C where C:LayoutConstraintGroup {
-  var result = lhs
-  result.identifier = rhs
-  result.forEach { $0.isActive = false }
-  return result
+  lhs.identifier = rhs
+  lhs.forEach { $0.isActive = false }
+  return lhs
 }
 
 /// Infix operation disabling and identifying the constraint group on the operation's left handside.

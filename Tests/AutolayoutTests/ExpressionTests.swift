@@ -5,8 +5,13 @@ import Autolayout
 import AppKit
 typealias Window = NSWindow
 extension NSWindow {
-  convenience init(frame: NSRect) { self.init(contentRect: frame, styleMask: [], backing: .buffered, defer: true) }
-  func addSubview(_ subview: LayoutView) { self.contentView!.addSubview(subview) }
+  convenience init(frame: NSRect) {
+    self.init(contentRect: frame, styleMask: [], backing: .buffered, defer: true)
+  }
+
+  func addSubview(_ subview: LayoutView) {
+    self.contentView!.addSubview(subview)
+  }
 }
 #elseif canImport(UIKit)
 import UIKit
@@ -135,12 +140,6 @@ extension ExpressionTests {
     let constraint = viewA.heightAnchor >= viewB.heightAnchor ~ 614.23
     assertConstraint(constraint, (viewA, .height), .greaterThanOrEqual, (viewB, .height), multiplier: 1, constant: 0, priority: 614.23)
   }
-
-  ///
-  //    func testBasicAssignmentPriority() {
-  //        let constraint = viewA.widthAnchor == 100 ~ .low
-  //        assertConstraint(constraint, (viewA, .width), .equal, nil, multiplier: 1, constant: 100, priority: .required)
-  //    }
 }
 
 // MARK: - Two operations

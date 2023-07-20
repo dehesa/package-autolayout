@@ -52,6 +52,10 @@ extension NSLayoutConstraint {
     @inlinable public func makeIterator() -> LayoutIteratorPair<NSLayoutConstraint> {
       LayoutIteratorPair(self.width, self.height)
     }
+
+    public static var defaultSuffixes: Identifier {
+      (".width", ".height")
+    }
   }
 
   /// Constraint group defining the center X and Y of an object.
@@ -82,6 +86,10 @@ extension NSLayoutConstraint {
     @inlinable public func makeIterator() -> LayoutIteratorPair<NSLayoutConstraint> {
       LayoutIteratorPair(self.x, self.y)
     }
+
+    public static var defaultSuffixes: Identifier {
+      (".x", ".y")
+    }
   }
 
   /// Constraint group defining the top and bottom vertical constraints of an object.
@@ -109,6 +117,10 @@ extension NSLayoutConstraint {
 
     @inlinable public func makeIterator() -> LayoutIteratorPair<NSLayoutConstraint> {
       LayoutIteratorPair(self.top, self.bottom)
+    }
+
+    public static var defaultSuffixes: Identifier {
+      (".top", ".bottom")
     }
   }
 
@@ -138,6 +150,10 @@ extension NSLayoutConstraint {
     @inlinable public func makeIterator() -> LayoutIteratorPair<NSLayoutConstraint> {
       LayoutIteratorPair(self.left, self.right)
     }
+
+    public static var defaultSuffixes: Identifier {
+      (".left", ".right")
+    }
   }
 
   /// Constraint group defining the leading and trailing constraints of an object.
@@ -165,6 +181,10 @@ extension NSLayoutConstraint {
 
     @inlinable public func makeIterator() -> LayoutIteratorPair<NSLayoutConstraint> {
       LayoutIteratorPair(self.leading, self.trailing)
+    }
+
+    public static var defaultSuffixes: Identifier {
+      (".leading", ".trailing")
     }
   }
 }
@@ -209,6 +229,10 @@ extension NSLayoutConstraint {
     @inlinable public func makeIterator() -> LayoutIteratorQuartet<NSLayoutConstraint> {
       LayoutIteratorQuartet(self.top, self.left, self.bottom, self.right)
     }
+
+    public static var defaultSuffixes: Identifier {
+      (".top", ".left", ".bottom", ".right")
+    }
   }
 }
 
@@ -251,6 +275,10 @@ extension NSLayoutConstraint {
 
     @inlinable public func makeIterator() -> LayoutIteratorQuartet<NSLayoutConstraint> {
       LayoutIteratorQuartet(self.top, self.leading, self.bottom, self.trailing)
+    }
+
+    public static var defaultSuffixes: Identifier {
+      (".top", ".leading", ".bottom", ".trailing")
     }
   }
 }

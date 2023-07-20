@@ -50,7 +50,7 @@ extension NSLayoutYAxisAnchor: LayoutAnchorSingle {
   }
 }
 
-// MARK: - Anchor Pair
+// MARK: - Anchor Pairs
 
 /// A layout anchor representing the width and height of the object generating this instance.
 public struct LayoutSizeAnchor: LayoutAnchorPair {
@@ -157,7 +157,7 @@ public struct LayoutDirectionalAnchor: LayoutAnchorPair {
   public static var isInset: Bool { true }
 }
 
-// MARK: - Four Anchors
+// MARK: - Anchor Quartets
 
 public struct LayoutEdgeAnchor: LayoutAnchorQuartet {
   public typealias Constant = EdgeInsets

@@ -6,7 +6,7 @@ import UIKit
 #error("OS not supported")
 #endif
 
-/// Concrete types conforming to this protocol represent a layout anchor used in Autolayout.
+/// A conforming type represents a layout anchor used in Autolayout.
 public protocol LayoutAnchor {
   /// The type of constant associated with the given layout anchor.
   associatedtype Constant: LayoutConstant
@@ -21,7 +21,7 @@ public protocol LayoutAnchor {
   func constraint(lessThanOrEqualTo anchor: Self, multiplier: CGFloat?, constant: Self.Constant) -> Self.Constraint
 }
 
-/// Layout anchor that is able to produce constraints from only layout constants.
+/// A conforming type is able to produce constraints from only layout constants.
 public protocol LayoutAnchorConstant: LayoutAnchor {
   /// Generates constraints from an equality relation between the receiving anchor and a constant.
   func constraint(equalToConstant constant: Self.Constant) -> Self.Constraint
@@ -31,19 +31,22 @@ public protocol LayoutAnchorConstant: LayoutAnchor {
   func constraint(lessThanOrEqualToConstant constant: Self.Constant) -> Self.Constraint
 }
 
-/// A layout anchor that produces a single layout constraint (i.e. non-aggregated).
-public protocol LayoutAnchorSingle: LayoutAnchor where Self.Constant == CGFloat,
-                                                       Self.Constraint == NSLayoutConstraint {}
+/// A conforming type produces a single layout constraint (i.e. non-aggregated).
+public protocol LayoutAnchorSingle: LayoutAnchor
+  where Self.Constant == CGFloat,
+        Self.Constraint == NSLayoutConstraint {}
 
-/// A layout anchor that produces several layout constraints (i.e. aggregated).
-public protocol LayoutAnchorGroup: LayoutAnchor where Self.Constant: LayoutConstantGroup,
-                                                      Self.Constraint: LayoutConstraintGroup {
+/// A conforming type produces several layout constraints (i.e. aggregated).
+public protocol LayoutAnchorGroup: LayoutAnchor
+  where Self.Constant: LayoutConstantGroup,
+        Self.Constraint: LayoutConstraintGroup {
   static var isInset: Bool { get }
 }
 
 /// An anchor internally grouping two single anchors (e.g. `SizeAnchor`, `LayoutCenterCenterAnchor`, etc.).
-internal protocol LayoutAnchorPair: LayoutAnchorGroup where Self.Constant: LayoutConstantPair,
-                                                            Self.Constraint.Iterator == LayoutIteratorPair<NSLayoutConstraint> {
+internal protocol LayoutAnchorPair: LayoutAnchorGroup
+  where Self.Constant: LayoutConstantPair,
+        Self.Constraint.Iterator == LayoutIteratorPair<NSLayoutConstraint> {
   /// The anchor type for the first single anchor.
   associatedtype AnchorA: LayoutAnchorSingle
   /// The anchor type for the second single anchor.
@@ -80,7 +83,8 @@ extension LayoutAnchorPair {
 }
 
 /// An anchor internally grouping four single anchors (e.g. `EdgeAnchor`).
-internal protocol LayoutAnchorQuartet: LayoutAnchorGroup where Self.Constant: LayoutConstantQuartet, Self.Constraint.Iterator == LayoutIteratorQuartet<NSLayoutConstraint> {
+internal protocol LayoutAnchorQuartet: LayoutAnchorGroup where Self.Constant: LayoutConstantQuartet,
+                                                               Self.Constraint.Iterator == LayoutIteratorQuartet<NSLayoutConstraint> {
   /// The anchor type for the first single anchor.
   associatedtype AnchorA: LayoutAnchorSingle
   /// The anchor type for the second single anchor.
