@@ -29,8 +29,8 @@ final class ExpressionTests: XCTestCase {
   override func setUp() {
     self.window = Window(frame: .init(x: 0, y: 0, width: 400, height: 300))
     (self.viewA, self.viewB) = (LayoutView(), LayoutView())
-    self.viewA.enableAutolayout()
-    self.viewB.enableAutolayout()
+    self.viewA.disableAutoresizingMask()
+    self.viewB.disableAutoresizingMask()
     self.window.addSubview(self.viewA!)
     self.window.addSubview(self.viewB!)
   }

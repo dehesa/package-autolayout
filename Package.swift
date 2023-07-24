@@ -4,9 +4,9 @@ import PackageDescription
 let package = Package(
   name: "dehesa-autolayout",
   platforms: [
-    .iOS(.v12),
-    .tvOS(.v12),
-    .macOS(.v10_15),
+    .iOS(.v14),
+    .tvOS(.v14),
+    .macOS(.v11),
 //    .visionOS(.v1)
   ],
   products: [
@@ -14,7 +14,15 @@ let package = Package(
   ],
   dependencies: [],
   targets: [
-    .target(name: "Autolayout", dependencies: []),
-//    .testTarget(name: "AutolayoutTests", dependencies: ["Autolayout"])
+    .target(
+      name: "Autolayout",
+      dependencies: [],
+      path: "Sources"
+    ),
+    .testTarget(
+      name: "AutolayoutTests",
+      dependencies: ["Autolayout"],
+      path: "Tests"
+    )
   ]
 )
