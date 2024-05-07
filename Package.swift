@@ -2,7 +2,7 @@
 import PackageDescription
 
 let package = Package(
-  name: "dehesa-autolayout",
+  name: "package-autolayout",
   platforms: [
     .iOS(.v14),
     .tvOS(.v14),
