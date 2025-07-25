@@ -36,10 +36,10 @@ private extension [SwiftSetting] {
   static func customSettings(typeChecking: Int = 30, functionBodies: Int = 80) -> Self {
     // Slow compilation warnings
     var result: Self = [
-      .unsafeFlags([
-        "-Xfrontend", "-warn-long-expression-type-checking=\(typeChecking)",
-        "-Xfrontend", "-warn-long-function-bodies=\(functionBodies)",
-      ], .when(configuration: .debug))
+//      .unsafeFlags([
+//        "-Xfrontend", "-warn-long-expression-type-checking=\(typeChecking)",
+//        "-Xfrontend", "-warn-long-function-bodies=\(functionBodies)",
+//      ], .when(configuration: .debug))
     ]
 
     // Force the usage of the keyword `any` when referencing protocols
