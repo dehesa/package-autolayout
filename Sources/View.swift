@@ -1,8 +1,8 @@
 #if canImport(AppKit)
-import AppKit
+public import AppKit
 public typealias LayoutView = NSView
 #elseif canImport(UIKit)
-import UIKit
+public import UIKit
 public typealias LayoutView = UIView
 #else
 #error("OS not supported")

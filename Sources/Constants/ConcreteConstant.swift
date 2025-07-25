@@ -1,9 +1,9 @@
 #if canImport(AppKit)
-import AppKit
+public import AppKit
 public typealias EdgeInsets = NSEdgeInsets
 public typealias DirectionalEdgeInsets = NSDirectionalEdgeInsets
 #elseif canImport(UIKit)
-import UIKit
+public import UIKit
 public typealias EdgeInsets = UIEdgeInsets
 public typealias DirectionalEdgeInsets = NSDirectionalEdgeInsets
 #else
@@ -12,7 +12,12 @@ public typealias DirectionalEdgeInsets = NSDirectionalEdgeInsets
 
 extension CGFloat: LayoutConstant {}
 
-extension CGPoint: LayoutConstantPair {
+extension CGPoint: @retroactive Sequence,
+                   @retroactive ExpressibleByArrayLiteral,
+                   @retroactive AdditiveArithmetic,
+                   @retroactive ExpressibleByIntegerLiteral,
+                   @retroactive ExpressibleByFloatLiteral,
+                                LayoutConstantPair {
   public typealias Iterator = LayoutIteratorPair<CGFloat>
 
   @usableFromInline init(_ first: CGFloat, _ second: CGFloat) {
@@ -29,7 +34,12 @@ extension CGPoint: LayoutConstantPair {
   }
 }
 
-extension CGSize: LayoutConstantPair {
+extension CGSize: @retroactive Sequence,
+                  @retroactive ExpressibleByArrayLiteral,
+                  @retroactive AdditiveArithmetic,
+                  @retroactive ExpressibleByIntegerLiteral,
+                  @retroactive ExpressibleByFloatLiteral,
+                  LayoutConstantPair {
   public typealias Iterator = LayoutIteratorPair<CGFloat>
 
   @usableFromInline init(_ first: CGFloat, _ second: CGFloat) {
@@ -146,7 +156,13 @@ public struct DirectionalInsets: LayoutConstantPair {
 }
 
 /// Represents a horizontal and vertical shift for the top, left, bottom, right anchors.
-extension EdgeInsets: LayoutConstantQuartet {
+extension EdgeInsets: @retroactive Sequence,
+                      @retroactive ExpressibleByArrayLiteral,
+                      @retroactive AdditiveArithmetic,
+                      @retroactive ExpressibleByIntegerLiteral,
+                      @retroactive ExpressibleByFloatLiteral,
+                      @retroactive Equatable,
+                      LayoutConstantQuartet {
   public typealias Iterator = LayoutIteratorQuartet<CGFloat>
 
   @usableFromInline init(_ first: CGFloat, _ second: CGFloat, _ third: CGFloat, _ fourth: CGFloat) {
@@ -193,7 +209,13 @@ extension EdgeInsets: LayoutConstantQuartet {
 }
 
 /// Represents a horizontal and vertical shift for the top, leading, bottom, trailing anchors.
-extension DirectionalEdgeInsets: LayoutConstantQuartet {
+extension DirectionalEdgeInsets: @retroactive Sequence,
+                                 @retroactive ExpressibleByArrayLiteral,
+                                 @retroactive AdditiveArithmetic,
+                                 @retroactive ExpressibleByIntegerLiteral,
+                                 @retroactive ExpressibleByFloatLiteral,
+                                 @retroactive Equatable,
+                                 LayoutConstantQuartet {
   public typealias Iterator = LayoutIteratorQuartet<CGFloat>
 
   @usableFromInline init(_ first: CGFloat, _ second: CGFloat, _ third: CGFloat, _ fourth: CGFloat) {

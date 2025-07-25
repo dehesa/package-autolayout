@@ -1,56 +1,61 @@
-import XCTest
-import Autolayout
+internal import Autolayout
+internal import Testing
+#if canImport(AppKit)
+internal import AppKit
+#elseif canImport(UIKit)
+internal import UIKit
+#endif
 
-final class PriorityTests: XCTestCase {
-  func testAssignment() {
+@Suite struct PriorityTests {
+  @Test func assignment() {
     let priority: LayoutPriority = .required
-    XCTAssertEqual(priority.rawValue, LayoutPriority.required.rawValue, accuracy: .epsilon)
+    #expect(abs(priority.rawValue - LayoutPriority.required.rawValue) <= .epsilon)
   }
   
-  func testIntegerAssignment() {
+  @Test func integerAssignment() {
     let priority: LayoutPriority = 77
-    XCTAssertEqual(priority.rawValue, 77, accuracy: .epsilon)
+    #expect(abs(priority.rawValue - 77.0) <= .epsilon)
   }
   
-  func testNumericAssignment() {
+  @Test func numericAssignment() {
     let priority: LayoutPriority = 88.877
-    XCTAssertEqual(priority.rawValue, 88.877, accuracy: .epsilon)
+    #expect(abs(priority.rawValue - (88.877)) <= .epsilon)
   }
   
-  func testIntegerOperationAssignment() {
+  @Test func integerOperationAssignment() {
     let priority = LayoutPriority(97 + 32)
-    XCTAssertEqual(priority.rawValue, 97 + 32, accuracy: .epsilon)
+    #expect(abs(priority.rawValue - (97 + 32)) <= .epsilon)
   }
   
-  func testNumericOperationAssignment() {
+  @Test func numericOperationAssignment() {
     let priority = LayoutPriority(111.11 - 2.222)
-    XCTAssertEqual(priority.rawValue, 111.11 - 2.222, accuracy: .epsilon)
+    #expect(abs(priority.rawValue - (111.11 - 2.222)) <= .epsilon)
   }
   
-  func testNumericOperationsAssignment() {
-    let priority: LayoutPriority = .low + 4 - 26 / 5 * 29.9
-    XCTAssertEqual(priority.rawValue, LayoutPriority.low.rawValue + 4 - 26 / 5 * 29.9, accuracy: .epsilon)
+  @Test func numericOperationsAssignment() {
+    let priority: LayoutPriority = .low + 4.0 - 26.0 / 5.0 * 29.9
+    #expect(fabsf(priority.rawValue - (LayoutPriority.low.rawValue + 4.0 - 26.0 / 5.0 * 29.9)) <= Float.epsilon)
   }
   
-  func testIntegerOperations() {
+  @Test func integerOperations() {
     let priority: LayoutPriority = .high
     let result = priority - 5 + 2
-    XCTAssertEqual(result, LayoutPriority.high.rawValue - 5 + 2, accuracy: .epsilon)
+    #expect(abs(result - (LayoutPriority.high.rawValue - 5 + 2)) <= .epsilon)
   }
   
-  func testNumericOperations() {
+  @Test func numericOperations() {
     let priority: LayoutPriority = .high
     let result = priority - 5.3 + 2
-    XCTAssertEqual(result, LayoutPriority.high.rawValue - 5.3 + 2, accuracy: .epsilon)
+    #expect(abs(result - (LayoutPriority.high.rawValue - 5.3 + 2)) <= .epsilon)
   }
 }
 
-final class PriorityConstraintTests: XCTestCase {
-  var window: Window!
-  var viewA: LayoutView!
-  var viewB: LayoutView!
+@Suite @MainActor final class PriorityConstraintTests {
+  let window: Window
+  let viewA: LayoutView
+  let viewB: LayoutView
 
-  override func setUp() {
+  init() {
     self.window = Window(frame: .init(x: 0, y: 0, width: 400, height: 300))
     (self.viewA, self.viewB) = (LayoutView(), LayoutView())
     self.viewA.disableAutoresizingMask()
@@ -58,33 +63,20 @@ final class PriorityConstraintTests: XCTestCase {
     self.window.addSubview(self.viewA)
     self.window.addSubview(self.viewB)
   }
-  
-  override func tearDown() {
-    self.viewA.removeFromSuperview()
-    self.viewB.removeFromSuperview()
-    self.viewA = nil
-    self.viewB = nil
-    self.window = nil
-  }
 }
 
 extension PriorityConstraintTests {
-  static var allTests = [
-    ("testBasicConstraintPriority", testBasicConstraintPriority),
-    ("testBasicConstraintNumberPriority", testBasicConstraintNumberPriority)
-  ]
-  
   /// Tests the basic priority setting for constraints.
   func testBasicConstraintPriority() {
-    let constraint = NSLayoutConstraint(item: viewA!, attribute: .width, relatedBy: .equal, toItem: viewB, attribute: .width, multiplier: 1, constant: 0)
+    let constraint = NSLayoutConstraint(item: viewA, attribute: .width, relatedBy: .equal, toItem: viewB, attribute: .width, multiplier: 1, constant: 0)
     constraint ~ .high
-    XCTAssertEqual(constraint.priority.rawValue, LayoutPriority.high.rawValue, accuracy: .epsilon)
+    #expect(abs(constraint.priority.rawValue - LayoutPriority.high.rawValue) <= .epsilon)
   }
   
   /// Tests the numeric priority setting for constraints.
   func testBasicConstraintNumberPriority() {
-    let constraint = NSLayoutConstraint(item: viewA!, attribute: .width, relatedBy: .equal, toItem: viewB, attribute: .width, multiplier: 1, constant: 0)
+    let constraint = NSLayoutConstraint(item: viewA, attribute: .width, relatedBy: .equal, toItem: viewB, attribute: .width, multiplier: 1, constant: 0)
     constraint ~ 501.2
-    XCTAssertEqual(constraint.priority.rawValue, LayoutPriority(501.2).rawValue, accuracy: .epsilon)
+    #expect(abs(constraint.priority.rawValue - LayoutPriority(501.2).rawValue) <= .epsilon)
   }
 }

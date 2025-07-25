@@ -1,5 +1,5 @@
 #if canImport(QuartzCore)
-import QuartzCore
+public import QuartzCore
 #else
 #error("CGFloat types are not supported")
 #endif

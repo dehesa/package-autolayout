@@ -1,11 +1,11 @@
 #if canImport(QuartzCore)
-import QuartzCore
+public import QuartzCore
 #else
 #error("CGFloat types are not supported")
 #endif
 
 /// Type used on layout Expressions to offset constraints.
-public protocol LayoutConstant: AdditiveArithmetic, ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
+public protocol LayoutConstant: Sendable, AdditiveArithmetic, ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
   /// Initializes the constants with the default values (i.e. 0s)
   init()
   /// Operation negating the receiving constant.

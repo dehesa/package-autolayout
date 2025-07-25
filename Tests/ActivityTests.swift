@@ -1,12 +1,17 @@
-import XCTest
-import Autolayout
+internal import Autolayout
+internal import Testing
+#if canImport(AppKit)
+internal import AppKit
+#elseif canImport(UIKit)
+internal import UIKit
+#endif
 
-final class ActivityTests: XCTestCase {
-  var window: Window!
-  var viewA: LayoutView!
-  var viewB: LayoutView!
-  
-  override func setUp() {
+@Suite @MainActor final class Activity {
+  let window: Window
+  let viewA: LayoutView
+  let viewB: LayoutView
+
+  init() {
     self.window = Window(frame: .init(x: 0, y: 0, width: 400, height: 300))
     (self.viewA, self.viewB) = (LayoutView(), LayoutView())
     self.viewA.disableAutoresizingMask()
@@ -14,51 +19,36 @@ final class ActivityTests: XCTestCase {
     self.window.addSubview(self.viewA)
     self.window.addSubview(self.viewB)
   }
-  
-  override func tearDown() {
-    self.viewA.removeFromSuperview()
-    self.viewB.removeFromSuperview()
-    self.viewA = nil
-    self.viewB = nil
-    self.window = nil
-  }
-  
-  static var allTests = [
-    ("testPostfixActive", testPostfixActive),
-    ("testPostfixInactive", testPostfixInactive),
-    ("testInfixActive", testInfixActive),
-    ("testInfixInactive", testInfixInactive)
-  ]
 }
 
-extension ActivityTests {
+extension Activity {
   /// Tests the activity infix operator (true)
-  func testPostfixActive() {
-    let constraint = NSLayoutConstraint(item: viewA!, attribute: .width, relatedBy: .equal, toItem: viewB, attribute: .width, multiplier: 1, constant: 0)
+  @Test func testPostfixActive() {
+    let constraint = NSLayoutConstraint(item: viewA, attribute: .width, relatedBy: .equal, toItem: viewB, attribute: .width, multiplier: 1, constant: 0)
     constraint↑
-    XCTAssertEqual(constraint.isActive, true)
+    #expect(constraint.isActive == true)
   }
   
   /// Tests the activity infix operator (false)
-  func testPostfixInactive() {
-    let constraint = NSLayoutConstraint(item: viewA!, attribute: .width, relatedBy: .equal, toItem: viewB, attribute: .width, multiplier: 1, constant: 0)
+  @Test func testPostfixInactive() {
+    let constraint = NSLayoutConstraint(item: viewA, attribute: .width, relatedBy: .equal, toItem: viewB, attribute: .width, multiplier: 1, constant: 0)
     constraint↓
-    XCTAssertEqual(constraint.isActive, false)
+    #expect(constraint.isActive == false)
   }
   
   /// Tests the activity infix operator (true)
-  func testInfixActive() {
-    let constraint = NSLayoutConstraint(item: viewA!, attribute: .width, relatedBy: .equal, toItem: viewB, attribute: .width, multiplier: 1, constant: 0)
+  @Test func testInfixActive() {
+    let constraint = NSLayoutConstraint(item: viewA, attribute: .width, relatedBy: .equal, toItem: viewB, attribute: .width, multiplier: 1, constant: 0)
     constraint ↑ "Custom Identifier"
-    XCTAssertEqual(constraint.isActive, true)
-    XCTAssertEqual(constraint.identifier, "Custom Identifier")
+    #expect(constraint.isActive == true)
+    #expect(constraint.identifier == "Custom Identifier")
   }
   
   /// Tests the activity infix operator (false)
-  func testInfixInactive() {
-    let constraint = NSLayoutConstraint(item: viewA!, attribute: .width, relatedBy: .equal, toItem: viewB, attribute: .width, multiplier: 1, constant: 0)
+  @Test func testInfixInactive() {
+    let constraint = NSLayoutConstraint(item: viewA, attribute: .width, relatedBy: .equal, toItem: viewB, attribute: .width, multiplier: 1, constant: 0)
     constraint ↓ "Custom Identifier"
-    XCTAssertEqual(constraint.isActive, false)
-    XCTAssertEqual(constraint.identifier, "Custom Identifier")
+    #expect(constraint.isActive == false)
+    #expect(constraint.identifier == "Custom Identifier")
   }
 }

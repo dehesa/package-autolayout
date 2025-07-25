@@ -1,14 +1,15 @@
 #if canImport(AppKit)
-import AppKit
+public import AppKit
 public typealias LayoutPriority = NSLayoutConstraint.Priority
 #elseif canImport(UIKit)
-import UIKit
+public import UIKit
 public typealias LayoutPriority = UILayoutPriority
 #else
 #error("OS not supported")
 #endif
 
-extension LayoutPriority: ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
+extension LayoutPriority: @retroactive ExpressibleByIntegerLiteral,
+                          @retroactive ExpressibleByFloatLiteral {
   /// The priority level with which a button resists compressing its content.
   @_transparent public static var high: LayoutPriority { .defaultHigh }
   /// The priority level at which a button hugs its contents horizontally.

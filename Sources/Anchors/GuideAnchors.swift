@@ -1,8 +1,8 @@
 #if canImport(AppKit)
-import AppKit
+public import AppKit
 internal typealias LayoutGuide = NSLayoutGuide
 #elseif canImport(UIKit)
-import UIKit
+public import UIKit
 internal typealias LayoutGuide = UILayoutGuide
 #else
 #error("OS not supported")
