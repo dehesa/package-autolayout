@@ -31,6 +31,6 @@ public extension LayoutView {
   @inlinable func addSubview<V>(_ view: V, _ constraintGenerator: (_ superview: Self, _ view: V) -> Void) where V: LayoutView {
     view.translatesAutoresizingMaskIntoConstraints = false
     self.addSubview(view)
-    constraintGenerator(self as! Self, view)
+    constraintGenerator(unsafeDowncast(self, to: Self.self), view)
   }
 }
