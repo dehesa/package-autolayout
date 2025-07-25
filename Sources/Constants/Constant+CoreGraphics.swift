@@ -173,7 +173,7 @@ extension EdgeInsets: @retroactive Sequence,
     self.init(top: value, left: value, bottom: -value, right: -value)
   }
 
-  public init<S>(_ sequence: S) where S: Sequence, S.Element == CGFloat {
+  public init(_ sequence: some Sequence<CGFloat>) {
     var iterator = sequence.makeIterator()
     guard let first = iterator.next() else {
       self.init(); return
@@ -226,7 +226,7 @@ extension DirectionalEdgeInsets: @retroactive Sequence,
     self.init(top: value, leading: value, bottom: -value, trailing: -value)
   }
 
-  public init<S>(_ sequence: S) where S: Sequence, S.Element == CGFloat {
+  public init(_ sequence: some Sequence<CGFloat>) {
     var iterator = sequence.makeIterator()
     guard let first = iterator.next() else {
       self.init(); return

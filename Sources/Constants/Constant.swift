@@ -24,16 +24,16 @@ public protocol LayoutConstantGroup: LayoutConstant, Sequence, ExpressibleByArra
   init<S>(_ sequence: S) where S:Sequence, S.Element == CGFloat
 }
 
-extension LayoutConstantGroup {
-  public init(integerLiteral value: Int) {
+public extension LayoutConstantGroup {
+  init(integerLiteral value: Int) {
     self.init(CGFloat(value))
   }
 
-  public init(floatLiteral value: Double) {
+  init(floatLiteral value: Double) {
     self.init(CGFloat(value))
   }
 
-  public init(arrayLiteral elements: Self.Element...) {
+  init(arrayLiteral elements: Self.Element...) {
     self.init(elements)
   }
 }

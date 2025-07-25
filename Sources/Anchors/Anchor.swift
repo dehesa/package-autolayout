@@ -43,8 +43,8 @@ public protocol LayoutAnchorGroup: LayoutAnchor
   static var isInset: Bool { get }
 }
 
-/// An anchor internally grouping two single anchors (e.g. `SizeAnchor`, `LayoutCenterCenterAnchor`, etc.).
-internal protocol LayoutAnchorPair: LayoutAnchorGroup
+/// An anchor internally grouping two single anchors.
+protocol LayoutAnchorPair: LayoutAnchorGroup
   where Self.Constant: LayoutConstantPair,
         Self.Constraint.Iterator == LayoutIteratorPair<NSLayoutConstraint> {
   /// The anchor type for the first single anchor.
@@ -83,8 +83,8 @@ extension LayoutAnchorPair {
 }
 
 /// An anchor internally grouping four single anchors (e.g. `EdgeAnchor`).
-internal protocol LayoutAnchorQuartet: LayoutAnchorGroup where Self.Constant: LayoutConstantQuartet,
-                                                               Self.Constraint.Iterator == LayoutIteratorQuartet<NSLayoutConstraint> {
+protocol LayoutAnchorQuartet: LayoutAnchorGroup where Self.Constant: LayoutConstantQuartet,
+                                                      Self.Constraint.Iterator == LayoutIteratorQuartet<NSLayoutConstraint> {
   /// The anchor type for the first single anchor.
   associatedtype AnchorA: LayoutAnchorSingle
   /// The anchor type for the second single anchor.

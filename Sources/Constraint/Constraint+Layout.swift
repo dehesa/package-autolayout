@@ -16,8 +16,8 @@ extension NSLayoutConstraint: LayoutConstraint {
   /// - parameter multiplier: Optional multiplier to to use in the constraint formula.
   /// - returns: The receiving constraint (if duplication wasn't needed) or a newly created constraint with the basic attributes copied (NOT all attributes are copied).
   @usableFromInline func basicDuplicationIfNeeded(withMultiplier multiplier: CGFloat?) -> NSLayoutConstraint {
-    guard let m = multiplier else { return self }
-    return NSLayoutConstraint(item: self.firstItem!, attribute: self.firstAttribute, relatedBy: self.relation, toItem: self.secondItem, attribute: self.secondAttribute, multiplier: m, constant: self.constant)
+    guard let multiplier, multiplier != 1 else { return self }
+    return NSLayoutConstraint(item: self.firstItem!, attribute: self.firstAttribute, relatedBy: self.relation, toItem: self.secondItem, attribute: self.secondAttribute, multiplier: multiplier, constant: self.constant)
   }
 }
 

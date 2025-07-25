@@ -13,7 +13,7 @@ import UIKit
 }
 
 @discardableResult @inlinable public func == <A>(lhs: A, rhs: A) -> A.Constraint where A:LayoutAnchor {
-  lhs.constraint(equalTo: rhs, multiplier: .none, constant: .init())
+  lhs.constraint(equalTo: rhs, multiplier: .none, constant: A.Constant())
 }
 
 @discardableResult @inlinable public func == <A>(lhs: A, rhs: LayoutExpression<A>) -> A.Constraint where A:LayoutAnchor {
@@ -27,7 +27,7 @@ import UIKit
 }
 
 @discardableResult @inlinable public func >= <A>(lhs: A, rhs: A) -> A.Constraint where A:LayoutAnchor {
-  lhs.constraint(greaterThanOrEqualTo: rhs, multiplier: .none, constant: .init())
+  lhs.constraint(greaterThanOrEqualTo: rhs, multiplier: .none, constant: A.Constant())
 }
 
 @discardableResult @inlinable public func >= <A>(lhs: A, rhs: LayoutExpression<A>) -> A.Constraint where A:LayoutAnchor {
