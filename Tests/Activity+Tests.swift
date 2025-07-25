@@ -25,14 +25,14 @@ extension Activity {
   /// Tests the activity infix operator (true)
   @Test func testPostfixActive() {
     let constraint = NSLayoutConstraint(item: viewA, attribute: .width, relatedBy: .equal, toItem: viewB, attribute: .width, multiplier: 1, constant: 0)
-    constraint↑
+    ↑constraint
     #expect(constraint.isActive == true)
   }
   
   /// Tests the activity infix operator (false)
   @Test func testPostfixInactive() {
     let constraint = NSLayoutConstraint(item: viewA, attribute: .width, relatedBy: .equal, toItem: viewB, attribute: .width, multiplier: 1, constant: 0)
-    constraint↓
+    ↓constraint
     #expect(constraint.isActive == false)
   }
   

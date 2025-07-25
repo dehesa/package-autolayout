@@ -6,43 +6,14 @@ public import UIKit
 #error("OS not supported")
 #endif
 
-// MARK: Postfix
-
-postfix operator ↑
-
-/// Postfix operation enabling/activating the constraint affected by the operator.
-/// - parameter lhs: The constraint to activate.
-@discardableResult @inlinable public postfix func ↑ (lhs: NSLayoutConstraint) -> NSLayoutConstraint  {
-  lhs.isActive = true
-  return lhs
+precedencegroup LayoutActivationPrecedence {
+  lowerThan: ComparisonPrecedence
+  higherThan: AssignmentPrecedence
+  associativity: left
 }
 
-/// Postfix operation enabling/activating the constraint group affected by the operator.
-/// - parameter lhs: The constraint to activate.
-@discardableResult @inlinable public postfix func ↑ <C>(lhs: C) -> C where C:LayoutConstraintGroup {
-  lhs.forEach { $0.isActive = true }
-  return lhs
-}
-
-postfix operator ↓
-
-/// Postfix operation disabling the constraint affected by the operator.
-/// - parameter lhs: The constraint to disable.
-@discardableResult @inlinable public postfix func ↓ (lhs: NSLayoutConstraint) -> NSLayoutConstraint  {
-  lhs.isActive = false
-  return lhs
-}
-
-/// Postfix operation disabling the constraint group affected by the operator.
-/// - paramter lhs: The constraint/s to disable.
-@discardableResult @inlinable public postfix func ↓ <C>(lhs: C) -> C where C:LayoutConstraintGroup {
-  lhs.forEach { $0.isActive = false }
-  return lhs
-}
-
-// MARK: - Infix
-
-infix operator ↑ : LogicalDisjunctionPrecedence
+infix operator ↑ : LayoutActivationPrecedence
+infix operator ↓ : LogicalDisjunctionPrecedence
 
 /// Infix operation activing and identifying the constraint on the operation's left handside.
 /// - parameter lhs: The constraint to be actuated upon.
@@ -90,8 +61,6 @@ infix operator ↑ : LogicalDisjunctionPrecedence
   lhs.forEach { $0.isActive = true }
   return lhs
 }
-
-infix operator ↓ : LogicalDisjunctionPrecedence
 
 /// Infix operation disabling and identifying the constraint on the operation's left handside.
 /// - parameter lhs: The constraint to be actuated upon.

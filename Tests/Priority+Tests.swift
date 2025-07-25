@@ -67,14 +67,14 @@ internal import UIKit
 
 extension PriorityConstraintTests {
   /// Tests the basic priority setting for constraints.
-  func testBasicConstraintPriority() {
+  @Test func testBasicConstraintPriority() {
     let constraint = NSLayoutConstraint(item: viewA, attribute: .width, relatedBy: .equal, toItem: viewB, attribute: .width, multiplier: 1, constant: 0)
     constraint ~ .high
     #expect(abs(constraint.priority.rawValue - LayoutPriority.high.rawValue) <= .epsilon)
   }
   
   /// Tests the numeric priority setting for constraints.
-  func testBasicConstraintNumberPriority() {
+  @Test func testBasicConstraintNumberPriority() {
     let constraint = NSLayoutConstraint(item: viewA, attribute: .width, relatedBy: .equal, toItem: viewB, attribute: .width, multiplier: 1, constant: 0)
     constraint ~ 501.2
     #expect(abs(constraint.priority.rawValue - LayoutPriority(501.2).rawValue) <= .epsilon)
