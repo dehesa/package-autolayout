@@ -5,7 +5,7 @@ public import QuartzCore
 #endif
 
 /// Type used on layout Expressions to offset constraints.
-public protocol LayoutConstant: Sendable, AdditiveArithmetic, ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
+public protocol LayoutConstant: AdditiveArithmetic, ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral {
   /// Initializes the constants with the default values (i.e. 0s)
   init()
   /// Operation negating the receiving constant.
